@@ -35,9 +35,4 @@ public class UE {
 	public void setIntitule(String intitule) {
 		this.intitule = intitule;
 	}
-
-	@Override
-	public String toString() {
-		return "" + id + " ; " + intitule + " \n " ;
-	}
 }
