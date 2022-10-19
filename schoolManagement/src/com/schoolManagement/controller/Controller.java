@@ -11,6 +11,8 @@ public class Controller {
 		System.out.println(ue.getId());
 		System.out.println(ue.getCode());
 		System.out.println(ue.getIntitule());
+		
+	
 	}
 
 }
