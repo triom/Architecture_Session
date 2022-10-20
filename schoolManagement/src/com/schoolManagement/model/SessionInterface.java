@@ -2,7 +2,7 @@ package com.schoolManagement.model;
 
 public interface SessionInterface {
 	public void createUE(String id, String code, String intitule);
-	public String deleteEU();
+	public void deleteUE(String id);
 	public String getUE();
 	public String listEU();
 }

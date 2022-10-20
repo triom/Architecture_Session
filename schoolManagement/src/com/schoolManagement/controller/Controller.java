@@ -8,10 +8,10 @@ public class Controller {
 		try {
 					SessionImplementation session = new SessionImplementation();
 					session.initDatabase();
-					session.createUE("198", "52916", "Chimie");
+					session.createUE("89", "505", "AOA");
+					session.deleteUE("89");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 	}
-

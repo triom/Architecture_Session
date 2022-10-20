@@ -1,5 +1,8 @@
 package com.schoolManagement.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class UE extends SqlUtils {
 
 	private String id;
@@ -42,5 +45,31 @@ public class UE extends SqlUtils {
 				this.code, this.intitule));
 		this.selectAll();
 		this.disconnect();
+	}
+	
+	public void delete() {
+		this.connect();
+		this.requestUpdate(String.format("DELETE FROM UniteEnseignement WHERE id='%s'", this.id));
+		this.selectAll();
+		this.disconnect();
+
+	}
+	
+	public static UE getById(String id) {
+		SqlUtils sql = new SqlUtils();
+		sql.connect();
+		ResultSet set = sql.requestSelect(String.format("SELECT * FROM UniteEnseignement WHERE id='%s'", id));
+		
+		try {
+			UE ue = new UE(set.getString("id"), set.getString("code"),
+					set.getString("intitule"));
+			sql.disconnect();
+			return ue;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			sql.disconnect();
+			return null;
+		}
+		
 	}
 }

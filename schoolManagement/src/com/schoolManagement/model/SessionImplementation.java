@@ -44,9 +44,9 @@ public class SessionImplementation implements SessionInterface{
 	}
 
 	@Override
-	public String deleteEU() {
-		// TODO Auto-generated method stub
-		return null;
+	public void deleteUE(String id) {
+			UE.getById(id).delete();
+			System.out.println("Ue deleted.");
 	}
 
 	@Override
