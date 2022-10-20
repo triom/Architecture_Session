@@ -8,7 +8,7 @@ public class Controller {
 		try {
 					SessionImplementation session = new SessionImplementation();
 					session.initDatabase();
-					session.createUE("1", "216", "Thermodynamics");
+					session.createUE("198", "52916", "Chimie");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

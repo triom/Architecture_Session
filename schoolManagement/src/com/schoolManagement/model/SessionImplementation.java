@@ -7,7 +7,7 @@ import java.sql.Statement;
 public class SessionImplementation implements SessionInterface{
 
 	public void initDatabase() throws ClassNotFoundException {
-		Connection conn = null;
+		Connection conn=null;
 		String url = "jdbc:sqlite:data.db";
 		try {
 

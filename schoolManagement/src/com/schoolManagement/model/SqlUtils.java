@@ -52,6 +52,23 @@ public class SqlUtils {
 
 	}
 
+	protected void selectAll(){
+	        String sql = "SELECT ID, code, intitule FROM UniteEnseignement";
+	        
+	        try (Statement stmt  = conn.createStatement();
+	             ResultSet rs    = stmt.executeQuery(sql)){
+	            
+	            // loop through the result set
+	            while (rs.next()) {
+	                System.out.println(rs.getInt("ID") +  "\t" + 
+	                                   rs.getString("code") + "\t" +
+	                                   rs.getString("intitule"));
+	            }
+	        } catch (SQLException e) {
+	            System.out.println(e.getMessage());
+	        }
+	    }
+	 
 	protected void disconnect() {
 		try {
 			conn.close();

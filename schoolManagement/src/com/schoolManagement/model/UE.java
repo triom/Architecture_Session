@@ -40,6 +40,7 @@ public class UE extends SqlUtils {
 		this.connect(); 
 		this.requestUpdate(String.format("INSERT INTO UniteEnseignement VALUES('%s','%s','%s')", this.id,
 				this.code, this.intitule));
+		this.selectAll();
 		this.disconnect();
 	}
 }
