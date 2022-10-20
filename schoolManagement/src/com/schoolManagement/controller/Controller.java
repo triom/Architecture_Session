@@ -1,18 +1,17 @@
 package com.schoolManagement.controller;
 
-import com.schoolManagement.model.UE;
+import com.schoolManagement.model.SessionImplementation;
 
 public class Controller {
 
-	public static void main(String[] args) {
-		
-		UE ue = new UE("1","5646","Maths et physique");
-		
-		System.out.println(ue.getId());
-		System.out.println(ue.getCode());
-		System.out.println(ue.getIntitule());
-		
-	
+	public static void main(String[] args) throws ClassNotFoundException {
+		try {
+					SessionImplementation session = new SessionImplementation();
+					session.initDatabase();
+					session.createUE("1", "216", "Thermodynamics");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 	}
 
-}

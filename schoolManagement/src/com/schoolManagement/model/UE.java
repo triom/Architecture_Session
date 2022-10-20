@@ -1,6 +1,6 @@
 package com.schoolManagement.model;
 
-public class UE {
+public class UE extends SqlUtils {
 
 	private String id;
 	private String code;
@@ -34,5 +34,12 @@ public class UE {
 
 	public void setIntitule(String intitule) {
 		this.intitule = intitule;
+	}
+	
+	public void save() {
+		this.connect(); 
+		this.requestUpdate(String.format("INSERT INTO UniteEnseignement VALUES('%s','%s','%s')", this.id,
+				this.code, this.intitule));
+		this.disconnect();
 	}
 }
