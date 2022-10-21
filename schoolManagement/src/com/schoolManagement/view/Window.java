@@ -1,15 +1,9 @@
 package com.schoolManagement.view;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.filechooser.FileSystemView;
 import com.schoolManagement.model.SessionImplementation;
 
 public class Window {
