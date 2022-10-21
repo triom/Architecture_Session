@@ -15,13 +15,6 @@ public class UE extends SqlUtils {
 		this.intitule = intitule;
 	}
 	
-	/*public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}*/
 	
 	public String getCode() {
 		return code;
@@ -41,7 +34,7 @@ public class UE extends SqlUtils {
 	
 	public void save() throws SQLException {
 		this.connect(); 
-		this.requestUpdate(String.format("INSERT INTO UniteEnseignement VALUES('%s','%s','%s')", this.countUeTable()+1,
+		this.requestUpdate(String.format("INSERT INTO UniteEnseignement VALUES('%s','%s','%s')", this.id,
 				this.code, this.intitule));
 		this.selectAll();
 		this.disconnect();

@@ -20,7 +20,7 @@ public class SessionImplementation implements SessionInterface{
 		}
 
 		
-		String sql = "CREATE TABLE IF NOT EXISTS UniteEnseignement(ID INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT,intitule TEXT)";
+		String sql = "CREATE TABLE IF NOT EXISTS UniteEnseignement(ID INTEGER,code TEXT,intitule TEXT)";
 		try (Statement stmt = conn.createStatement()) {
 			// create a new table
 			stmt.execute(sql);
