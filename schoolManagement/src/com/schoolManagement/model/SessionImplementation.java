@@ -20,7 +20,7 @@ public class SessionImplementation implements SessionInterface{
 		}
 
 		
-		String sql = "CREATE TABLE IF NOT EXISTS UniteEnseignement(ID TEXT PRIMARY KEY,code TEXT,intitule TEXT)";
+		String sql = "CREATE TABLE IF NOT EXISTS UniteEnseignement(ID INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT,intitule TEXT)";
 		try (Statement stmt = conn.createStatement()) {
 			// create a new table
 			stmt.execute(sql);
@@ -37,14 +37,14 @@ public class SessionImplementation implements SessionInterface{
 	}
 	
 	@Override
-	public void createUE(String id, String code, String intitule) {
+	public void createUE(int id,String code, String intitule) throws SQLException {
 		UE ue = new UE(id, code, intitule);	
 		ue.save();
 		System.out.println("Ue created.");
 	}
 
 	@Override
-	public void deleteUE(String id) {
+	public void deleteUE(int id) {
 			UE.getById(id).delete();
 			System.out.println("Ue deleted.");
 	}

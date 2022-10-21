@@ -67,7 +67,15 @@ public class SqlUtils {
 	            System.out.println(e.getMessage());
 	        }
 	}
-	 
+
+	protected int countUeTable() throws SQLException{
+        String sql = "SELECT COUNT(*) FROM UniteEnseignement";
+        Statement stmt  = conn.createStatement(); 
+        ResultSet rs= stmt.executeQuery(sql);
+        int val =((Number) rs.getObject(1)).intValue();
+        return val;
+}
+	
 	protected void disconnect() {
 		try {
 			conn.close();
