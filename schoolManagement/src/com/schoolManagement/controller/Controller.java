@@ -1,6 +1,7 @@
 package com.schoolManagement.controller;
 
 import com.schoolManagement.model.SessionImplementation;
+import com.schoolManagement.view.Window;
 
 public class Controller {
 
@@ -8,8 +9,8 @@ public class Controller {
 		try {
 					SessionImplementation session = new SessionImplementation();
 					session.initDatabase();
-					session.createUE(4, "163", "Théorie des ensembles");
-					//session.deleteUE(5);
+					Window window = new Window(session);
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
