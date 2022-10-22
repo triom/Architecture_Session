@@ -190,8 +190,7 @@ public class Window {
  		    @Override
  		    public void tableChanged(TableModelEvent tableModelEvent) {
  		    	if (table.getSelectedRow() != -1) {
-	 	        	System.out.println(module);
-				    
+	 	        	
 	 	            String selection = table.getValueAt(table.getSelectedRow(), 0).toString();
 				    
 	 	            System.out.println(selection);
@@ -269,7 +268,6 @@ public class Window {
 		
 		String header[] = new String[] {"Select","Classe","UE","Créneau"};
 	    dtm.setColumnIdentifiers(header);
-	    dtm.addRow(new Object[] {false, "Entrer...", "Entrer...", "Entrer..."});
 	}
 	
 	public void createSession() {

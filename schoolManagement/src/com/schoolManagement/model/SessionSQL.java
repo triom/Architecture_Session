@@ -9,8 +9,8 @@ public class SessionSQL extends SqlUtils {
 	public void save(Session session) throws SQLException {
 			this.connect(); 
 			for (Creneau creneau : session.getCreneaux()) {
-				this.requestUpdate(String.format("INSERT INTO Session VALUES('%s','%s','%s')", session.getClasse().getId(),
-						session.getUe().getId(), creneau.getIdCreneau());
+				this.requestUpdate(String.format("INSERT INTO Session VALUES('%s','%s','%s')", session.getClasse().getClasseid(),
+						session.getUe().getId(), creneau.getIdCreneau()));
 				this.selectAll();
 			}
 			this.disconnect();
