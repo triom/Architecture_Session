@@ -28,7 +28,7 @@ public class Window {
 	private void initialize() 
 	{
 		this.frame = new JFrame("Gestion des sessions");
-		frame.setBounds(50, 50, 1000, 1000);
+		frame.setBounds(50, 50, 1000, 550);
 	    frame.setUndecorated(true);
 	    frame.getRootPane().setWindowDecorationStyle(JRootPane.PLAIN_DIALOG);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
