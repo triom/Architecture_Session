@@ -44,6 +44,22 @@ public class SessionImplementation implements SessionInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//create the classe table
+		String sqlClasse = "CREATE TABLE IF NOT EXISTS Classe(ClasseId INTEGER,section TEXT,promotion INTEGER)";
+		try (Statement stmt = conn.createStatement()) {
+			// create a new table
+			stmt.execute(sqlClasse);
+			System.out.println("Classe table created");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -66,6 +82,24 @@ public class SessionImplementation implements SessionInterface {
 		return null;
 	}
 	
+
+	@Override
+	public void createClasse(int classeid, String section, int promotion) throws SQLException {
+		Classe cl = new Classe(classeid, section, promotion);	
+		cl.save();
+		System.out.println("Classe created.");
+	}
+
+	@Override
+	public void deleteClasse(int classeid) {
+		Classe.getById(classeid).delete();
+		System.out.println("Classe deleted.");
+	}
+	@Override
+	public Classe getClasse(int classeid) {
+		// TODO Auto-generated method stub
+		return Classe.getById(classeid);
+	}
 	@Override
 	public String listEU() {
 		// TODO Auto-generated method stub
