@@ -3,7 +3,7 @@ package com.schoolManagement.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SessionObjectImplementation extends SqlUtils {
+public class SessionSQL extends SqlUtils {
 	public void save(Session session) throws SQLException {
 			this.connect(); 
 			this.requestUpdate(String.format("INSERT INTO Session VALUES('%s','%s','%s')", session.getClasse(),

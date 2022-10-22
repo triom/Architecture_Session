@@ -3,7 +3,7 @@ package com.schoolManagement.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UEImplementation extends SqlUtils {
+public class UESQL extends SqlUtils {
 	public void save(UE ue) throws SQLException {
 		this.connect(); 
 		this.requestUpdate(String.format("INSERT INTO UniteEnseignement VALUES('%s','%s','%s')", ue.getId(),
