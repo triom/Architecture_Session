@@ -26,4 +26,34 @@ public class SessionImplementation implements SessionInterface{
 		return null;
 	}
 
+	@Override
+	public String createSession() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String deleteSession() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getSession() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String listSession() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String setSession() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
