@@ -16,7 +16,7 @@ public class Session {
 	public Session(Classe classe, UE ue, ArrayList<Creneau> creneaux) {
 		this.classe = classe;
 		this.ue = ue;
-		this.creneau = creneaux;
+		this.creneaux = creneaux;
 	}
 
 	public void setCreneau(Creneau creneau, int indexCreneau) {
@@ -24,10 +24,10 @@ public class Session {
 	}
 
 	public void addCreneau(Creneau creneau) {
-		this.creneaux.add(creneau)
+		this.creneaux.add(creneau);
 	}
 
 	public void removeCreneau(int indexCreneau) {
-		this.creneaux.remove(indexCreneau)
+		this.creneaux.remove(indexCreneau);
 	}
 }
