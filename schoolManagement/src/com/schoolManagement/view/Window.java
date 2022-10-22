@@ -40,7 +40,7 @@ public class Window {
 
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		        manageUE();
+		    	manageUE();
 		    }
 		});
 	    

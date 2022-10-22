@@ -1,8 +1,5 @@
 package com.schoolManagement.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class UE extends SqlUtils {
 
 	private int id;
@@ -10,7 +7,7 @@ public class UE extends SqlUtils {
 	private String intitule;
 
 	public UE(int id,String code, String intitule) {
-		this.id = id;
+		this.setId(id);
 		this.code=code;
 		this.intitule = intitule;
 	}
@@ -31,37 +28,14 @@ public class UE extends SqlUtils {
 	public void setIntitule(String intitule) {
 		this.intitule = intitule;
 	}
-	
-	public void save() throws SQLException {
-		this.connect(); 
-		this.requestUpdate(String.format("INSERT INTO UniteEnseignement VALUES('%s','%s','%s')", this.id,
-				this.code, this.intitule));
-		this.selectAll();
-		this.disconnect();
+
+
+	public int getId() {
+		return id;
 	}
-	
-	public void delete() {
-		this.connect();
-		this.requestUpdate(String.format("DELETE FROM UniteEnseignement WHERE id='%s'", this.id));
-		this.selectAll();
-		this.disconnect();
-	}
-	
-	public static UE getById(int id) {
-		SqlUtils sql = new SqlUtils();
-		sql.connect();
-		ResultSet set = sql.requestSelect(String.format("SELECT * FROM UniteEnseignement WHERE id='%s'", id));
-		
-		try {
-			UE ue = new UE(set.getInt("id"),set.getString("code"),
-					set.getString("intitule"));
-			sql.disconnect();
-			return ue;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			sql.disconnect();
-			return null;
-		}
-		
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

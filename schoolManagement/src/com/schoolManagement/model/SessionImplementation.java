@@ -4,9 +4,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SessionImplementation implements SessionInterface{
+public class SessionImplementation implements SessionInterface {
+
+	private UEImplementation ue_implementation;
+	private SessionObjectImplementation session_implementation;
 
 	public void initDatabase() throws ClassNotFoundException {
+		this.ue_implementation = new UEImplementation();
+		this.session_implementation = new SessionObjectImplementation();
+		
 		Connection conn=null;
 		String url = "jdbc:sqlite:data.db";
 		try {
@@ -21,10 +27,14 @@ public class SessionImplementation implements SessionInterface{
 
 		
 		String sql = "CREATE TABLE IF NOT EXISTS UniteEnseignement(ID INTEGER,code TEXT,intitule TEXT)";
+		String sqlSession = "CREATE TABLE IF NOT EXISTS Session(ID_UE INTEGER,ID_classe INTEGER,ID_creneau INTEGER)";
+		
 		try (Statement stmt = conn.createStatement()) {
 			// create a new table
 			stmt.execute(sql);
 			System.out.println("Ue table created");
+			stmt.execute(sqlSession);
+			System.out.println("Session table created");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -39,14 +49,15 @@ public class SessionImplementation implements SessionInterface{
 	@Override
 	public void createUE(int id,String code, String intitule) throws SQLException {
 		UE ue = new UE(id, code, intitule);	
-		ue.save();
+		this.ue_implementation.save(ue);
 		System.out.println("Ue created.");
 	}
 
 	@Override
 	public void deleteUE(int id) {
-			UE.getById(id).delete();
-			System.out.println("Ue deleted.");
+		UE ue = this.ue_implementation.getUEById(id);
+		this.ue_implementation.delete(ue);
+		System.out.println("Ue deleted.");
 	}
 
 	@Override
@@ -54,7 +65,7 @@ public class SessionImplementation implements SessionInterface{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public String listEU() {
 		// TODO Auto-generated method stub
@@ -62,19 +73,24 @@ public class SessionImplementation implements SessionInterface{
 	}
 
 	@Override
-	public String createSession() {
-		// TODO Auto-generated method stub
-		return null;
+	public void createSession(int id_ue, int id_classe, int id_creneau) throws SQLException {
+		UE ue = this.ue_implementation.getUEById(id_ue);
+		Classe classe = null;
+		Creneau creneau = null;
+		Session session = new Session(classe, ue, creneau);	
+		this.session_implementation.save(session);
+		System.out.println("Session created.");
 	}
 
 	@Override
-	public String deleteSession() {
-		// TODO Auto-generated method stub
-		return null;
+	public void deleteSession(int id) {
+		Session session = this.session_implementation.getSessionById(id);
+		this.session_implementation.delete(session);
+		System.out.println("Session deleted.");
 	}
 
 	@Override
-	public String getSession() {
+	public Session getSession() {
 		// TODO Auto-generated method stub
 		return null;
 	}
