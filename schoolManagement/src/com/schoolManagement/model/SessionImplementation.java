@@ -8,6 +8,7 @@ public class SessionImplementation implements SessionInterface {
 
 	private UESQL ue_sql;
 	private SessionSQL session_sql;
+	private ClasseSQL cl_sql;
 
 	public void initDatabase() throws ClassNotFoundException {
 		this.ue_sql = new UESQL();
@@ -86,19 +87,20 @@ public class SessionImplementation implements SessionInterface {
 	@Override
 	public void createClasse(int classeid, String section, int promotion) throws SQLException {
 		Classe cl = new Classe(classeid, section, promotion);	
-		cl.save();
+		this.cl_sql.save(cl);
 		System.out.println("Classe created.");
 	}
 
 	@Override
 	public void deleteClasse(int classeid) {
-		Classe.getById(classeid).delete();
+		Classe cl= this.cl_sql.getById(classeid);
+		this.cl_sql.delete(cl);
 		System.out.println("Classe deleted.");
 	}
 	@Override
 	public Classe getClasse(int classeid) {
 		// TODO Auto-generated method stub
-		return Classe.getById(classeid);
+		return this.cl_sql.getById(classeid);
 	}
 	@Override
 	public String listEU() {
