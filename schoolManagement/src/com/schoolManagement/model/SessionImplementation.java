@@ -33,6 +33,7 @@ public class SessionImplementation implements SessionInterface {
 		String sql = "CREATE TABLE IF NOT EXISTS UniteEnseignement(ID INTEGER,code TEXT,intitule TEXT)";
 		String sqlSession = "CREATE TABLE IF NOT EXISTS Session(ID_UE INTEGER,ID_classe INTEGER,ID_creneau INTEGER)";
 		String sqlClasse = "CREATE TABLE IF NOT EXISTS Classe(ClasseId INTEGER,section TEXT,promotion INTEGER)";
+		String sqlCreneau = "CREATE TABLE IF NOT EXISTS Creneau(idCreneau INTEGER,debut TEXT,fin TEXT,jour TEXT)";
 		
 		try (Statement stmt = conn.createStatement()) {
 			// create a new table
@@ -42,6 +43,8 @@ public class SessionImplementation implements SessionInterface {
 			System.out.println("Session table created");
 			stmt.execute(sqlClasse);
 			System.out.println("Classe table created");
+			stmt.execute(sqlCreneau);
+			System.out.println("Creneau table created");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -90,7 +93,7 @@ public class SessionImplementation implements SessionInterface {
 //		for (int id : ids_creneaux) {
 //			creneaux.add(this.creneau_sql.getCreneauById(id));
 //		}
-		creneaux.add(this.creneau_sql.getCreneauById(2));
+		creneaux.add(this.creneau_sql.getById(2));
 			
 		Session session = new Session(classe, ue, creneaux);	
 		this.session_sql.save(session);
