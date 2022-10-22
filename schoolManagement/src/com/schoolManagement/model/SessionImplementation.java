@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class SessionImplementation implements SessionInterface {
 
@@ -73,11 +74,15 @@ public class SessionImplementation implements SessionInterface {
 	}
 
 	@Override
-	public void createSession(int id_ue, int id_classe, int id_creneau) throws SQLException {
+	public void createSession(int id_ue, int id_classe, ArrayList<Integer> ids_creneaux) throws SQLException {
 		UE ue = this.ue_sql.getUEById(id_ue);
 		Classe classe = null;
-		Creneau creneau = null;
-		Session session = new Session(classe, ue, creneau);	
+		ArrayList<Creneau> creneaux = new ArrayList<Creneau>();
+		for (int id : ids_creneaux) {
+//			creneaux.add(this.creneau_sql.getCreneauById(id));
+		}
+			
+		Session session = new Session(classe, ue, creneaux);	
 		this.session_sql.save(session);
 		System.out.println("Session created.");
 	}
