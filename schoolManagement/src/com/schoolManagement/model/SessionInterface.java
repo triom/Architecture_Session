@@ -8,6 +8,11 @@ public interface SessionInterface {
 	// UE
 	public void createUE(int id, String code, String intitule) throws SQLException;
 	public void deleteUE(int id);
+	
+	public void createClasse(int classeid, String section, int promotion) throws SQLException;
+	public void deleteClasse(int classeid);
+	public Classe getClasse(int classeid);
+	
 	public String getUE();
 	public String listEU();
 	

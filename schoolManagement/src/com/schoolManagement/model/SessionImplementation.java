@@ -9,6 +9,7 @@ public class SessionImplementation implements SessionInterface {
 
 	private UESQL ue_sql;
 	private SessionSQL session_sql;
+	private ClasseSQL cl_sql;
 
 	public void initDatabase() throws ClassNotFoundException {
 		this.ue_sql = new UESQL();
@@ -29,6 +30,7 @@ public class SessionImplementation implements SessionInterface {
 		
 		String sql = "CREATE TABLE IF NOT EXISTS UniteEnseignement(ID INTEGER,code TEXT,intitule TEXT)";
 		String sqlSession = "CREATE TABLE IF NOT EXISTS Session(ID_UE INTEGER,ID_classe INTEGER,ID_creneau INTEGER)";
+		String sqlClasse = "CREATE TABLE IF NOT EXISTS Classe(ClasseId INTEGER,section TEXT,promotion INTEGER)";
 		
 		try (Statement stmt = conn.createStatement()) {
 			// create a new table
@@ -36,6 +38,8 @@ public class SessionImplementation implements SessionInterface {
 			System.out.println("Ue table created");
 			stmt.execute(sqlSession);
 			System.out.println("Session table created");
+			stmt.execute(sqlClasse);
+			System.out.println("Classe table created");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -110,6 +114,25 @@ public class SessionImplementation implements SessionInterface {
 	public String setSession() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public void createClasse(int classeid, String section, int promotion) throws SQLException {
+		Classe cl = new Classe(classeid, section, promotion);	
+		this.cl_sql.save(cl);
+		System.out.println("Classe created.");
+	}
+
+	@Override
+	public void deleteClasse(int classeid) {
+		Classe cl= this.cl_sql.getById(classeid);
+		this.cl_sql.delete(cl);
+		System.out.println("Classe deleted.");
+	}
+	@Override
+	public Classe getClasse(int classeid) {
+		// TODO Auto-generated method stub
+		return this.cl_sql.getById(classeid);
 	}
 
 }
