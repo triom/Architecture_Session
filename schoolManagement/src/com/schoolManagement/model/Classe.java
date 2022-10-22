@@ -1,8 +1,6 @@
 package com.schoolManagement.model;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
-public class Classe extends SqlUtils {
+public class Classe {
 
 	private int classeid;
 	private String section;

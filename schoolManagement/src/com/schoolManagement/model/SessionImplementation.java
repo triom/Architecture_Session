@@ -10,10 +10,12 @@ public class SessionImplementation implements SessionInterface {
 	private UESQL ue_sql;
 	private SessionSQL session_sql;
 	private ClasseSQL cl_sql;
+	private CreneauSQL creneau_sql;
 
 	public void initDatabase() throws ClassNotFoundException {
 		this.ue_sql = new UESQL();
 		this.session_sql = new SessionSQL();
+		this.creneau_sql = new CreneauSQL();
 		
 		Connection conn=null;
 		String url = "jdbc:sqlite:data.db";
@@ -78,13 +80,17 @@ public class SessionImplementation implements SessionInterface {
 	}
 
 	@Override
-	public void createSession(int id_ue, int id_classe, ArrayList<Integer> ids_creneaux) throws SQLException {
+	public void createSession(int id_classe, int id_ue, ArrayList<Integer> ids_creneaux) throws SQLException {
 		UE ue = this.ue_sql.getUEById(id_ue);
-		Classe classe = null;
+		System.out.println("no"+ue.getId());
+//		Classe classe = this.cl_sql.getById(id_classe);
+		Classe classe = new Classe(2,"",1);
+		
 		ArrayList<Creneau> creneaux = new ArrayList<Creneau>();
-		for (int id : ids_creneaux) {
+//		for (int id : ids_creneaux) {
 //			creneaux.add(this.creneau_sql.getCreneauById(id));
-		}
+//		}
+		creneaux.add(this.creneau_sql.getCreneauById(2));
 			
 		Session session = new Session(classe, ue, creneaux);	
 		this.session_sql.save(session);
@@ -99,21 +105,14 @@ public class SessionImplementation implements SessionInterface {
 	}
 
 	@Override
-	public Session getSession() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Session> listSession() {
+		ArrayList<Session> sessions = this.session_sql.getAllSessions();
+		return sessions;
 	}
 
 	@Override
-	public String listSession() {
+	public void setSession() {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String setSession() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	@Override

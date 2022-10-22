@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.schoolManagement.model.Classe;
 import com.schoolManagement.model.Creneau;
+import com.schoolManagement.model.Session;
 import com.schoolManagement.model.SessionImplementation;
 import com.schoolManagement.model.UE;
 
@@ -189,11 +190,10 @@ public class Window {
  		dtm.addTableModelListener(new TableModelListener(){
  		    @Override
  		    public void tableChanged(TableModelEvent tableModelEvent) {
- 		    	if (table.getSelectedRow() != -1) {
+ 		    	if (table.getSelectedRow() != -1 && table.getRowCount() > 0) {
 	 	        	
 	 	            String selection = table.getValueAt(table.getSelectedRow(), 0).toString();
 				    
-	 	            System.out.println(selection);
 				    if (module == "UE") {
 				    	if (selection == "true") {
 				    		code_ue_selected = table.getValueAt(table.getSelectedRow(), 1).toString();
@@ -268,11 +268,17 @@ public class Window {
 		
 		String header[] = new String[] {"Select","Classe","UE","Créneau"};
 	    dtm.setColumnIdentifiers(header);
+	    for (Session session : sessionImplementation.listSession()) {
+	    	System.out.println("session"+":"+session.getUe().getId());
+	    	for (Creneau creneau : session.getCreneaux()) {
+	    		dtm.addRow(new Object[] { false, "test", session.getUe().getId(), "test"});
+//	    		dtm.addRow(new Object[] { false, session.getClasse().getClasseid(), session.getUe().getId(), creneau.getIdCreneau()});
+	    	}
+	    }
 	}
 	
 	public void createSession() {
 		try {
-			System.out.println("bestie"+code_ue_selected);
 			num_classe_selected = "0";
 			sessionImplementation.createSession(Integer.parseInt(num_classe_selected), Integer.parseInt(code_ue_selected), nums_creneaux_selected);
 		} catch (SQLException e1) {

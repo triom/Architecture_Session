@@ -22,10 +22,10 @@ public class UESQL extends SqlUtils {
 	public UE getUEById(int id) {
 		SqlUtils sql = new SqlUtils();
 		sql.connect();
-		ResultSet set = sql.requestSelect(String.format("SELECT * FROM UniteEnseignement WHERE id='%s'", id));
+		ResultSet set = sql.requestSelect(String.format("SELECT * FROM UniteEnseignement WHERE ID='%s'", id));
 		
 		try {
-			UE ue = new UE(set.getInt("id"),set.getString("code"),
+			UE ue = new UE(set.getInt("ID"),set.getString("code"),
 					set.getString("intitule"));
 			sql.disconnect();
 			return ue;

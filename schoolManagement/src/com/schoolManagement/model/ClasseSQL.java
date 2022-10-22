@@ -20,7 +20,7 @@ public class ClasseSQL extends SqlUtils {
 		this.disconnect();
 	}
 	
-	public static Classe getById(int findId) {
+	public Classe getById(int findId) {
 		SqlUtils sql = new SqlUtils();
 		sql.connect();
 		ResultSet set = sql.requestSelect(String.format("SELECT * FROM Classe WHERE ClasseId='%s'", findId));

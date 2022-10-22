@@ -7,7 +7,7 @@ public class UE {
 	private String intitule;
 
 	public UE(int id,String code, String intitule) {
-		this.setId(id);
+		this.id = id;
 		this.code=code;
 		this.intitule = intitule;
 	}
