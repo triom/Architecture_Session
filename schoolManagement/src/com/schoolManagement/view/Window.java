@@ -19,6 +19,11 @@ public class Window {
 	private JButton bSession;
 	private JLabel label;
 	private SessionImplementation session;
+	private DefaultTableModel dtm;
+	private JTable tableUE;
+	private JButton createButton;
+	private JButton deleteButton;
+	private String module;
 	
 	public Window(SessionImplementation session) {
 		this.session = session;
@@ -40,9 +45,12 @@ public class Window {
 
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	manageUE();
+		    	module = "UE";
+		    	showUE();
 		    }
 		});
+	    
+	    module = "UE";
 	    
 	    bCreneau = new JButton("Créneau");  
 	    bCreneau.setBounds(50,150,95,30); 
@@ -59,7 +67,8 @@ public class Window {
 
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		        manageSession();
+		    	module = "Session";
+		        showSession();
 		    }
 		});
 	    
@@ -68,23 +77,17 @@ public class Window {
 	    label.setFont(new Font("Verdana", Font.BOLD, 15));
 	    frame.add(label);
 	    
-	    manageUE();
-	}
-	
-	public void manageUE() {
-		label.setText("UE management");
-		
-		JButton createUEButton = new JButton("Create");  
-	    createUEButton.setBounds(750,100,95,30);
-	    frame.add(createUEButton);
+	    createButton = new JButton("Create");  
+	    createButton.setBounds(750,100,95,30);
+	    frame.add(createButton);
 	    
-	    JButton deleteUEButton = new JButton("Delete");  
-	    deleteUEButton.setBounds(750,150,95,30);
-	    frame.add(deleteUEButton);
-  
+	    deleteButton = new JButton("Delete");  
+	    deleteButton.setBounds(750,150,95,30);
+	    frame.add(deleteButton);
+	    
 	    JPanel panel = new JPanel();
-	    JTable tableUE = new JTable();
-	    DefaultTableModel dtm = new DefaultTableModel(0, 0);
+	    tableUE = new JTable();
+	    dtm = new DefaultTableModel(0, 0);
 	    String header[] = new String[] {"ID","Code","Intitulé"};
 	    dtm.setColumnIdentifiers(header);
 	    dtm.addRow(new Object[] { "", "", "" });
@@ -96,34 +99,58 @@ public class Window {
 	    
 	    frame.getContentPane().add(panel);
 	    
-		// UE part
-		createUEButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int row = tableUE.getSelectedRow();
-			    String id = tableUE.getModel().getValueAt(row, 0).toString();
-				String codeUE = tableUE.getModel().getValueAt(row, 1).toString();	
-				String intituleUE = tableUE.getModel().getValueAt(row, 2).toString();
-				try {
-					session.createUE(Integer.parseInt(id), codeUE, intituleUE);
-					dtm.addRow(new Object[] { "", "", "" });
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-			}
-		});
-		deleteUEButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int row = tableUE.getSelectedRow();
-				String id = tableUE.getModel().getValueAt(row, 0).toString();
-				session.deleteUE(Integer.parseInt(id));
-			}
-		});
+	    // UE part
+	    createButton.addActionListener(new ActionListener() {
+ 			public void actionPerformed(ActionEvent e) {
+ 				if (module == "UE")
+ 					createUE();
+// 				if (module == "Session")
+// 					createSession();
+ 			}
+ 		});
+ 		deleteButton.addActionListener(new ActionListener() {
+ 			public void actionPerformed(ActionEvent e) {
+ 				if (module == "UE")
+ 					deleteUE();
+// 				if (module == "Session")
+// 					deleteSession();
+ 			}
+ 		});
+	 		
+ 		showUE();
 	}
 	
-	public void manageSession() {
+	public void showUE() {
+		label.setText("UE management");
+		
+		String header[] = new String[] {"ID","Code","Intitulé"};
+	    dtm.setColumnIdentifiers(header);
+	}
+	
+	public void createUE() {
+		int row = tableUE.getSelectedRow();
+	    String id = tableUE.getModel().getValueAt(row, 0).toString();
+		String codeUE = tableUE.getModel().getValueAt(row, 1).toString();	
+		String intituleUE = tableUE.getModel().getValueAt(row, 2).toString();
+		try {
+			session.createUE(Integer.parseInt(id), codeUE, intituleUE);
+			dtm.addRow(new Object[] { "", "", "" });
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void deleteUE() {
+		int row = tableUE.getSelectedRow();
+		String id = tableUE.getModel().getValueAt(row, 0).toString();
+		session.deleteUE(Integer.parseInt(id));
+	}
+	
+	public void showSession() {
 		label.setText("Session management");
-
+		
+		String header[] = new String[] {"Classe","UE","Créneau"};
+	    dtm.setColumnIdentifiers(header);
 	}
 }

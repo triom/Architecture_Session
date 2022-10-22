@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SessionSQL extends SqlUtils {
+	private UESQL ue_sql = new UESQL();
+	
 	public void save(Session session) throws SQLException {
 			this.connect(); 
 			this.requestUpdate(String.format("INSERT INTO Session VALUES('%s','%s','%s')", session.getClasse(),
@@ -20,20 +22,21 @@ public class SessionSQL extends SqlUtils {
 	}
 	
 	public Session getSessionById(int id) {
-//		SqlUtils sql = new SqlUtils();
-//		sql.connect();
-//		ResultSet set = sql.requestSelect(String.format("SELECT * FROM Session WHERE id='%s'", id));
-//		
-//		try {
-//			Session session = new Session(set.getInt("id"),set.getString("code"),
-//					set.getString("intitule"));
-//			sql.disconnect();
-//			return session;
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			sql.disconnect();
-//			return null;
-//		}
-		return null;
+		SqlUtils sql = new SqlUtils();
+		sql.connect();
+		ResultSet set = sql.requestSelect(String.format("SELECT * FROM Session WHERE id='%s'", id));
+		
+		try {
+			UE ue = this.ue_sql.getUEById(set.getInt("ID_UE"));
+			Classe classe = null;
+			Creneau creneau = null;
+			Session session = new Session(classe,ue,creneau);
+			sql.disconnect();
+			return session;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			sql.disconnect();
+			return null;
+		}
 	}
 }
