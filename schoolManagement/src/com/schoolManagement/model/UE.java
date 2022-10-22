@@ -1,6 +1,6 @@
 package com.schoolManagement.model;
 
-public class UE extends SqlUtils {
+public class UE {
 
 	private int id;
 	private String code;
