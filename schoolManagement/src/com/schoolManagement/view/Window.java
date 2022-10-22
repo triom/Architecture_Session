@@ -13,13 +13,19 @@ import com.schoolManagement.model.SessionImplementation;
 public class Window {
 
 	public JFrame frame;
+	private JButton bUE;
+	private JButton bCreneau;
+	private JButton bClasse;
+	private JButton bSession;
+	private JLabel label;
+	private SessionImplementation session;
 	
 	public Window(SessionImplementation session) {
-
-		initialize(session);
+		this.session = session;
+		initialize();
 	}
 	
-	private void initialize(SessionImplementation session) 
+	private void initialize() 
 	{
 		this.frame = new JFrame("Gestion des sessions");
 		frame.setBounds(50, 50, 1000, 1000);
@@ -27,32 +33,55 @@ public class Window {
 	    frame.getRootPane().setWindowDecorationStyle(JRootPane.PLAIN_DIALOG);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    
-	    JButton bUE = new JButton("UE");  
+	    bUE = new JButton("UE");  
 	    bUE.setBounds(50,100,95,30);
 	    frame.add(bUE);
-	    JButton bCreneau = new JButton("Créneau");  
+	    bUE.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        manageUE();
+		    }
+		});
+	    
+	    bCreneau = new JButton("Créneau");  
 	    bCreneau.setBounds(50,150,95,30); 
 	    frame.add(bCreneau);
-	    JButton bClasse = new JButton("Classe");  
+	    
+	    bClasse = new JButton("Classe");  
 	    bClasse.setBounds(50,200,95,30); 
 	    frame.add(bClasse);
-	    JButton bSession = new JButton("Session");  
+	    
+	    bSession = new JButton("Session");  
 	    bSession.setBounds(50,250,95,30); 
 	    frame.add(bSession);
+	    bSession.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        manageSession();
+		    }
+		});
 	    
-	    JButton createUEButton = new JButton("Create");  
+	    label = new JLabel();
+	    label.setBounds(150,10,200,50);
+	    label.setFont(new Font("Verdana", Font.BOLD, 15));
+	    frame.add(label);
+	    
+	    manageUE();
+	}
+	
+	public void manageUE() {
+		label.setText("UE management");
+		
+		JButton createUEButton = new JButton("Create");  
 	    createUEButton.setBounds(750,100,95,30);
 	    frame.add(createUEButton);
 	    
 	    JButton deleteUEButton = new JButton("Delete");  
 	    deleteUEButton.setBounds(750,150,95,30);
 	    frame.add(deleteUEButton);
-	    
-	    JLabel label = new JLabel("UE management");
-	    label.setBounds(180,10,150,50);
-	    label.setFont(new Font("Verdana", Font.BOLD, 15));
-	    frame.add(label);
-	    
+  
 	    JPanel panel = new JPanel();
 	    JTable tableUE = new JTable();
 	    DefaultTableModel dtm = new DefaultTableModel(0, 0);
@@ -91,5 +120,10 @@ public class Window {
 				session.deleteUE(Integer.parseInt(id));
 			}
 		});
+	}
+	
+	public void manageSession() {
+		label.setText("Session management");
+
 	}
 }
