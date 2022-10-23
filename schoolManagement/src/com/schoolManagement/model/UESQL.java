@@ -12,14 +12,6 @@ public class UESQL extends SqlUtils {
 		this.disconnect();
 	}
 	
-	public void save(UE ue) throws SQLException {
-		this.connect(); 
-		this.requestUpdate(String.format("INSERT INTO UniteEnseignement VALUES('%s','%s','%s')", ue.getId(),
-				ue.getCode(), ue.getIntitule()));
-		this.selectAllUes();
-		this.disconnect();
-	}
-	
 	public void delete(UE ue) {
 		this.connect();
 		this.requestUpdate(String.format("DELETE FROM UniteEnseignement WHERE id='%s'", ue.getId()));

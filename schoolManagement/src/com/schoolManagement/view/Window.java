@@ -163,8 +163,15 @@ public class Window {
  		
  		createSession.addActionListener(new ActionListener() {
  			public void actionPerformed(ActionEvent e) {
- 				if (createSession.getText().contains("Create"))
+ 				if (createSession.getText().contains("Create")) {
+ 					labelSelectedUE.setText("Aucun UE sélectionné");
+			    	labelSelectedUE.setForeground(Color.BLACK);
+			    	labelSelectedClasse.setText("Aucune classe sélectionnée");
+ 					labelSelectedClasse.setForeground(Color.BLACK);
+ 					labelSelectedCreneau.setText("Aucun créneau sélectionné");
+ 					labelSelectedCreneau.setForeground(Color.BLACK);
  					createSession();
+ 				}
  				
  				else if (table.getSelectedRow() != -1 && table.getRowCount() > 0) {
 	 	        	if (module == "UE") {
