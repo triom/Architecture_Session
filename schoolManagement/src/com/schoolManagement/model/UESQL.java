@@ -35,4 +35,20 @@ public class UESQL extends SqlUtils {
 			return null;
 		}
 	}
+	
+	public ArrayList<UE> getAllUEs() {
+		ArrayList<UE> ues = new ArrayList<UE>();
+		this.connect();
+		ResultSet set = this.requestSelect(String.format("SELECT * FROM UniteEnseignement"));
+		try {
+			while (set.next()) {
+				ues.add(new UE(set.getInt("ID"),set.getString("code"),set.getString("intitule")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		this.disconnect();
+		return ues;
+	}
 }
