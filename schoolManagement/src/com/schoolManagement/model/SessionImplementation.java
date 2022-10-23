@@ -163,12 +163,12 @@ public class SessionImplementation implements SessionInterface {
 		return null;
 	}
 	
+		
 	@Override
-	public String listCreneau() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Creneau>  listCreneau() {
+		ArrayList<Creneau> cerneaux = this.creneau_sql.selectAllCreneaux();
+		return cerneaux;
 	}
-
 	
 
 }
