@@ -12,7 +12,7 @@ public class SessionSQL extends SqlUtils {
 	public void save(Session session) throws SQLException {
 			this.connect(); 
 			for (Creneau creneau : session.getCreneaux()) {
-				this.requestUpdate(String.format("INSERT INTO Session VALUES('%s','%s','%s')", session.getClasse().getClasseid(),
+				this.requestUpdate(String.format("INSERT INTO Session (ID_classe, ID_UE, ID_creneau) VALUES('%s','%s','%s')", session.getClasse().getClasseid(),
 						session.getUe().getId(), creneau.getIdCreneau()));
 				this.selectAllSessions();
 			}
@@ -21,18 +21,18 @@ public class SessionSQL extends SqlUtils {
 	
 	public void delete(Session session) {
 		this.connect();
-		this.requestUpdate(String.format("DELETE FROM Session WHERE id='%s'", session.getId()));
+		this.requestUpdate(String.format("DELETE FROM Session WHERE ID_session='%s'", session.getId()));
 		this.selectAllSessions();
 		this.disconnect();
 	}
 	
-	public Session getSessionById(int id) {
+	public Session getSessionById(int id_session) {
 		this.connect();
-		ResultSet set = this.requestSelect(String.format("SELECT * FROM Session WHERE id='%s'", id));
+		ResultSet set = this.requestSelect(String.format("SELECT * FROM Session WHERE ID_session='%s'", id_session));
 		
 		try {
 			UE ue = this.ue_sql.getUEById(set.getInt("ID_UE"));
-			Classe classe = null;
+			Classe classe = this.cl_sql.getById(set.getInt("ID_classe"));
 			Creneau creneau = null;
 			Session session = new Session(classe,ue,creneau);
 			this.disconnect();
@@ -44,23 +44,24 @@ public class SessionSQL extends SqlUtils {
 		}
 	}
 	
+	public void update(int id_session, int id_creneau) {
+		this.connect();
+		this.requestUpdate(String.format("UPDATE Session SET ID_creneau='%s' WHERE ID_session='%s'", id_creneau, id_session));
+		this.selectAllSessions();
+		this.disconnect();
+	}
+	
 	public ArrayList<Session> getAllSessions() {
 		ArrayList<Session> sessions = new ArrayList<Session>();
 		this.connect();
 		ResultSet set = this.requestSelect(String.format("SELECT * FROM Session"));
 		try {
 			while (set.next()) {
-//				Classe classe = this.cl_sql.getById(set.getInt("ID_classe"));
-//				UE ue = this.ue_sql.getUEById(set.getInt("ID_UE"));
+				Classe classe = this.cl_sql.getById(set.getInt("ID_classe"));
+				UE ue = this.ue_sql.getUEById(set.getInt("ID_UE"));
 //				Creneau creneau = this.creneau_sql.getById(set.getString("ID_creneau"));
-				System.out.println("classeid="+set.getInt("ID_classe"));
-				System.out.println("ueid="+set.getInt("ID_UE"));
-				System.out.println("creneauid="+set.getInt("ID_creneau"));
-				Classe classe = new Classe(set.getInt("ID_classe"),"",1);
-				UE ue = new UE(set.getInt("ID_UE"),"","");
-				Creneau creneau = new Creneau(set.getInt("ID_creneau"), "", "", "");
-				sessions.add(new Session(classe,ue,creneau));
-				
+				Creneau creneau = new Creneau(set.getInt("ID_creneau"), "deb", "fin", "j");
+				sessions.add(new Session(set.getInt("ID_session"), classe,ue,creneau));	
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

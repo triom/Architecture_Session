@@ -32,7 +32,7 @@ public class SessionImplementation implements SessionInterface {
 
 		
 		String sql = "CREATE TABLE IF NOT EXISTS UniteEnseignement(ID INTEGER,code TEXT,intitule TEXT)";
-		String sqlSession = "CREATE TABLE IF NOT EXISTS Session(ID_classe INTEGER,ID_UE INTEGER,ID_creneau INTEGER)";
+		String sqlSession = "CREATE TABLE IF NOT EXISTS Session(ID_session INTEGER PRIMARY KEY AUTOINCREMENT,ID_classe INTEGER,ID_UE INTEGER,ID_creneau INTEGER)";
 		String sqlClasse = "CREATE TABLE IF NOT EXISTS Classe(ClasseId INTEGER,section TEXT,promotion INTEGER)";
 		String sqlCreneau = "CREATE TABLE IF NOT EXISTS Creneau(idCreneau INTEGER,debut TEXT,fin TEXT,jour TEXT)";
 		
@@ -114,8 +114,9 @@ public class SessionImplementation implements SessionInterface {
 	}
 
 	@Override
-	public void setSession() {
-		// TODO Auto-generated method stub
+	public void setSession(int id_session, int id_creneau) {
+		this.session_sql.update(id_session, id_creneau);
+		System.out.println("Session updated.");
 	}
 	
 	@Override

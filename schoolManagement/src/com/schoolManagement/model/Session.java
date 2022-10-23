@@ -14,6 +14,14 @@ public class Session extends SqlUtils {
 		this.creneaux = new ArrayList<Creneau>();
 		this.creneaux.add(creneau);
 	}
+	
+	public Session(int id, Classe classe, UE ue, Creneau creneau) {
+		this.id = id;
+		this.setClasse(classe);
+		this.setUe(ue);
+		this.creneaux = new ArrayList<Creneau>();
+		this.creneaux.add(creneau);
+	}
 
 	public Session(Classe classe, UE ue, ArrayList<Creneau> creneaux) {
 		this.setClasse(classe);

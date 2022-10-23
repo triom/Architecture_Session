@@ -168,8 +168,8 @@ public class Window {
  					deleteUE();
  				if (module == "Classe")
  					deleteClasse();
-// 				if (module == "Session")
-// 					deleteSession();
+ 				if (module == "Session")
+ 					deleteSession();
  			}
  		});
  		
@@ -291,7 +291,6 @@ public class Window {
 			sessionImplementation.createUE(Integer.parseInt(id), codeUE, intituleUE);
 			dtm.addRow(new Object[] {"", "", "" });
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -308,10 +307,12 @@ public class Window {
 		createButton.setText("Update");
 		createSession.setVisible(false);
 		
-		String header[] = new String[] {"Classe","UE","Créneau"};
+		String header[] = new String[] {"ID_Section", "Classe","UE","Créneau"};
 	    dtm.setColumnIdentifiers(header);
 	    for (Session session : sessionImplementation.listSession()) {
-	    	dtm.addRow(new Object[] { session.getClasse().getClasseid(), session.getUe().getId(), session.getCreneaux().get(0).getIdCreneau()});
+	    	String classe = session.getClasse().getSection()+" "+session.getClasse().getPromotion();
+	    	String creneau = session.getCreneaux().get(0).getJour()+" "+session.getCreneaux().get(0).getDebut()+" "+session.getCreneaux().get(0).getFin();
+	    	dtm.addRow(new Object[] { session.getId(), classe, session.getUe().getCode(), creneau});
 	    }
 	}
 	
@@ -325,6 +326,12 @@ public class Window {
 		code_ue_selected = "-1";
 		num_classe_selected = "-1";
 		nums_creneaux_selected.clear();
+	}
+	
+	public void deleteSession() {
+		int row = table.getSelectedRow();
+		String id = table.getModel().getValueAt(row, 0).toString();
+		sessionImplementation.deleteSession(Integer.parseInt(id));
 	}
 		
 	public void showCreneau() {
