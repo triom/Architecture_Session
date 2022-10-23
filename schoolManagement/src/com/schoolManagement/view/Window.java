@@ -40,6 +40,9 @@ public class Window {
 	private String num_classe_selected = "-1";
 	private ArrayList<Integer> nums_creneaux_selected;
 	
+	//TextField
+	private JTextField idcl,sec,prom;
+	
 	public Window(SessionImplementation si) {
 		this.sessionImplementation = si;
 		this.nums_creneaux_selected = new ArrayList<Integer>();
@@ -143,6 +146,13 @@ public class Window {
 	    JPanel panel = new JPanel();
 	    dtm = new DefaultTableModel(data, header);
 
+//
+	    idcl = new JTextField();
+       	    sec = new JTextField();
+            prom = new JTextField();
+   
+ //
+		
 	    table = new JTable(dtm);
         table.getTableHeader().setReorderingAllowed(false);
         
@@ -224,19 +234,33 @@ public class Window {
  		showUE();
 	}
 	
+		
 	public void showClasse() {
-		dtm.setRowCount(0);
+		Classe[] tabCl=new Classe[255];
 		label.setText("Classe management");
-		if (num_classe_selected == "-1") {
-			createSession.setVisible(true);
-			createSession.setText("Add classe to session");
-		}
-		else
-			createSession.setVisible(false);
 		
 		String header[] = new String[] {"Id classe","Section","Promotion"};
 	    dtm.setColumnIdentifiers(header);
+	    //idcl,sec,prom;
+	    
+	    int rowCount = dtm.getRowCount();
+		  //Remove rows one by one from the end of the table
+		for (int i = rowCount - 1; i >= 0; i--) {
+			  dtm.removeRow(i);
+		}
+	    
+	    tabCl=sessionImplementation.getAllClasses();
+	    int i=0;
+	    while (tabCl[i]!=null) {
+	    	idcl.setText(Integer.toString(tabCl[i].getClasseid()));
+	   	    sec.setText(tabCl[i].getSection());
+	   	    prom.setText(Integer.toString(tabCl[i].getPromotion()));
+	   	    dtm.addRow(new Object[] { idcl.getText(),sec.getText(),prom.getText() });
+	   	    i++;
+		}
 	    dtm.addRow(new Object[] {"", "", ""});
+
+	 
 	}
 	
 	public void createClasse() {
@@ -258,12 +282,14 @@ public class Window {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		showClasse();
 	}
 	
 	public void deleteClasse() {
 		int row = table.getSelectedRow();
 		String classe_id = table.getModel().getValueAt(row, 0).toString();
 		sessionImplementation.deleteClasse(Integer.parseInt(classe_id));
+		showClasse();
 	}
 	
 	public void showUE() {
