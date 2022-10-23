@@ -6,7 +6,7 @@ import com.schoolManagement.view.Window;
 public class Controller {
 
 	public static void main(String[] args) throws ClassNotFoundException {
-		try {//test
+		try {
 					SessionImplementation session = new SessionImplementation();
 					session.initDatabase();
 					Window window = new Window(session);
