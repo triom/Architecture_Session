@@ -58,10 +58,9 @@ public class SessionSQL extends SqlUtils {
 				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.selectAll();
+		this.selectAllSessions;
 		this.disconnect();
 		return sessions;
 	}
