@@ -14,7 +14,7 @@ public class SessionSQL extends SqlUtils {
 			for (Creneau creneau : session.getCreneaux()) {
 				this.requestUpdate(String.format("INSERT INTO Session VALUES('%s','%s','%s')", 26,
 						session.getUe().getId(), creneau.getIdCreneau()));
-				this.selectAll();
+				this.selectAllSessions();
 			}
 			this.disconnect();
 	}
@@ -22,7 +22,7 @@ public class SessionSQL extends SqlUtils {
 	public void delete(Session session) {
 		this.connect();
 		this.requestUpdate(String.format("DELETE FROM Session WHERE id='%s'", session.getId()));
-		this.selectAll();
+		this.selectAllSessions;
 		this.disconnect();
 	}
 	

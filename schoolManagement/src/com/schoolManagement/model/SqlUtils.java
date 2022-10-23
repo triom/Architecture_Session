@@ -52,7 +52,7 @@ public class SqlUtils {
 
 	}
 
-	protected void selectAll(){
+	protected void selectAllUes(){
 	        String sql = "SELECT ID, code, intitule FROM UniteEnseignement";
 	        
 	        try (Statement stmt  = conn.createStatement(); ResultSet rs    = stmt.executeQuery(sql))
@@ -75,6 +75,22 @@ public class SqlUtils {
             while (rs.next()) 
             {
                 System.out.println(rs.getInt("ClasseId") +  "\t" + rs.getString("section") + "\t" + rs.getInt("promotion"));
+            }
+        } 
+        catch (SQLException e) 
+        {
+            System.out.println(e.getMessage());
+        }
+	}
+
+	protected void selectAllSessions(){
+        String sql = "SELECT ID_UE, ID_Classe, ID_creneau FROM Session";
+        
+        try (Statement stmt  = conn.createStatement(); ResultSet rs    = stmt.executeQuery(sql))
+        {
+            while (rs.next()) 
+            {
+                System.out.println(rs.getInt("ID_UE") +  "\t" + rs.getString("ID_Classe") + "\t" + rs.getInt("ID_creneau"));
             }
         } 
         catch (SQLException e) 
