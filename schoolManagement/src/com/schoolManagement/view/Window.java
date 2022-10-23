@@ -154,7 +154,7 @@ public class Window {
 	    // de créer une session 
 	    
 	    addSession = new JButton("Add UE to Session");  
-	    addSession.setBounds(750,310,180,30);
+	    addSession.setBounds(750,300,180,30);
 	    frame.add(addSession);
 	    
 	    createSession = new JButton("Create Session");  
@@ -276,7 +276,11 @@ public class Window {
 	public void showClasse() {
 		Classe[] tabCl=new Classe[255];
 		label.setText("Classe management");
-		addSession.setText("Add Classe to Section");
+		
+		if (num_classe_selected == "-1") {
+			addSession.setVisible(true);
+			addSession.setText("Add Classe to Section");
+		}
 		
 		createButton.setText("Create");
 		String header[] = new String[] {"Id classe","Section","Promotion"};
@@ -431,10 +435,8 @@ public class Window {
 		addSession.setText("Add Creneau to Section");
 		
 		createButton.setText("Create");
-		if (nums_creneaux_selected.isEmpty()) {
-			addSession.setVisible(true);
-		}
-		
+		addSession.setVisible(true);
+	
 		String header[] = new String[] {"idCreneau","debut","fin","jour"};
 	    dtm.setColumnIdentifiers(header);
 	    sessionImplementation.listCreneau();
