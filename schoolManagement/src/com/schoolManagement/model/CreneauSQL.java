@@ -48,4 +48,20 @@ public class CreneauSQL extends SqlUtils {
 			return null;
 		}
 	}
+	
+	public ArrayList<Creneau> getAllcreneaux() {
+        ArrayList<Creneau> creneau = new ArrayList<Creneau>();
+        this.connect();
+        ResultSet set = this.requestSelect(String.format("SELECT * FROM Creneau"));
+        try {
+            while (set.next()) {
+            	creneau.add(new Creneau(set.getInt("idCreneau"),set.getString("debut"),set.getString("fin"),set.getString("jour")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        this.disconnect();
+        return creneau;
+    }
 }
