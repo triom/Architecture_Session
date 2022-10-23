@@ -381,7 +381,7 @@ public class Window {
 		dtm.setRowCount(0);
 		label.setText("Creneau management");
 		createButton.setText("Create");
-		if (nums_creneaux_selected == "-1") {
+		if (nums_creneaux_selected.isEmpty()) {
 			createSession.setVisible(true);
 			createSession.setText("Add Creneau to session");
 		}
