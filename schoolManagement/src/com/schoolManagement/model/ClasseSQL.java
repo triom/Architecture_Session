@@ -9,18 +9,18 @@ public class ClasseSQL extends SqlUtils {
 		this.connect(); 
 		this.requestUpdate(String.format("INSERT INTO Classe VALUES('%s','%s','%s')", cl.getClasseid(),
 				cl.getSection(), cl.getPromotion()));
-		this.selectAll();
+		this.selectAllClasses();
 		this.disconnect();
 	}
 	
 	public void delete(Classe cl) {
 		this.connect();
 		this.requestUpdate(String.format("DELETE FROM Classe WHERE ClasseId='%s'", cl.getClasseid()));
-		this.selectAll();
+		this.selectAllClasses();
 		this.disconnect();
 	}
 	
-	public Classe getById(int findId) {
+	public static Classe getById(int findId) {
 		SqlUtils sql = new SqlUtils();
 		sql.connect();
 		ResultSet set = sql.requestSelect(String.format("SELECT * FROM Classe WHERE ClasseId='%s'", findId));

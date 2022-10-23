@@ -67,6 +67,21 @@ public class SqlUtils {
 	            System.out.println(e.getMessage());
 	        }
 	}
+	protected void selectAllClasses(){
+        String sql = "SELECT ClasseId, section, promotion FROM Classe";
+        
+        try (Statement stmt  = conn.createStatement(); ResultSet rs    = stmt.executeQuery(sql))
+        {
+            while (rs.next()) 
+            {
+                System.out.println(rs.getInt("ClasseId") +  "\t" + rs.getString("section") + "\t" + rs.getInt("promotion"));
+            }
+        } 
+        catch (SQLException e) 
+        {
+            System.out.println(e.getMessage());
+        }
+}
 	
 	protected void disconnect() {
 		try {
