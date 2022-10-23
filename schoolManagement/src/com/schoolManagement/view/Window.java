@@ -39,8 +39,6 @@ public class Window {
 	private String code_ue_selected = "-1";
 	private String num_classe_selected = "-1";
 	private ArrayList<Integer> nums_creneaux_selected;
-	
-	//TextField
 	private JTextField idcl,sec,prom;
 	
 	public Window(SessionImplementation si) {
@@ -51,11 +49,19 @@ public class Window {
 	
 	private void initialize() 
 	{
+		// Création frame
+		
 		this.frame = new JFrame("Gestion des sessions");
 		frame.setBounds(50, 50, 1000, 550);
 	    frame.setUndecorated(true);
 	    frame.getRootPane().setWindowDecorationStyle(JRootPane.PLAIN_DIALOG);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    
+	    // Initialisation du module affiché à UE par défaut
+	    
+	    module = "UE";
+	    
+	    // Bouton gestion des UE
 	    
 	    bUE = new JButton("UE");  
 	    bUE.setBounds(50,100,95,30);
@@ -69,7 +75,7 @@ public class Window {
 		    }
 		});
 	    
-	    module = "UE";
+	    // Bouton gestion Créneau
 	    
 	    bCreneau = new JButton("Créneau");  
 	    bCreneau.setBounds(50,150,95,30); 
@@ -87,6 +93,8 @@ public class Window {
 		    }
 		});
 	    
+	    // Bouton gestion Session
+	    
 	    bSession = new JButton("Session");  
 	    bSession.setBounds(50,250,95,30); 
 	    frame.add(bSession);
@@ -99,10 +107,14 @@ public class Window {
 		    }
 		});
 	    
+	    // Titre module affiché
+	    
 	    label = new JLabel();
 	    label.setBounds(150,10,200,50);
 	    label.setFont(new Font("Verdana", Font.BOLD, 15));
 	    frame.add(label);
+	    
+	    // Compte rendu création session
 	    
 	    labelSelectedUE = new JLabel("Aucun UE sélectionné");
 	    labelSelectedUE.setBounds(710,220,250,50);
@@ -119,6 +131,8 @@ public class Window {
 	    labelSelectedCreneau.setFont(new Font("Verdana", Font.BOLD, 15));
 	    frame.add(labelSelectedCreneau);
 	    
+	    // Règles création session
+	    
 	    JLabel explanation = new JLabel("Pour créer une session sélectionner un UE,");
 	    explanation.setBounds(670,220,300,300);
 	    explanation.setFont(new Font("Verdana", Font.BOLD, 12));
@@ -128,30 +142,34 @@ public class Window {
 	    explanation2.setFont(new Font("Verdana", Font.BOLD, 12));
 	    frame.add(explanation2);
 	    
+	    // Bouton permettant d'ajouter chaque élement permettant 
+	    // de créer une session 
+	    
 	    createSession = new JButton("Add UE to Session");  
 	    createSession.setBounds(750,310,180,30);
 	    frame.add(createSession);
+	    
+	    // Bouton de création de module
 	    
 	    createButton = new JButton("Create");  
 	    createButton.setBounds(750,100,95,30);
 	    frame.add(createButton);
 	    
+	    // Bouton de suppression de module
+	    
 	    deleteButton = new JButton("Delete");  
 	    deleteButton.setBounds(750,150,95,30);
 	    frame.add(deleteButton);
 	    
-	    String header[] = new String[] {"ID","Code","Intitulé"};
+	    // Création du panel
 	    
 	    JPanel panel = new JPanel();
 	    dtm = new DefaultTableModel();
-	    dtm.setColumnIdentifiers(header);
-//
+	    
 	    idcl = new JTextField();
-       	    sec = new JTextField();
-            prom = new JTextField();
-   
- //
-		
+       	sec = new JTextField();
+        prom = new JTextField();
+	
 	    table = new JTable(dtm);
         table.getTableHeader().setReorderingAllowed(false);
         
@@ -207,8 +225,7 @@ public class Window {
 	 					num_classe_selected = table.getValueAt(table.getSelectedRow(), 0).toString();
 	 					labelSelectedClasse.setText("Classe sélectionnée");
 	 					labelSelectedClasse.setForeground(Color.GREEN);
-	 					nums_creneaux_selected.add(34);
-	 					//createSession.setVisible(false);
+	 					createSession.setVisible(false);
 	 				}
 	 				if (module == "Créneau") {
 	 					nums_creneaux_selected.add(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString()));
@@ -235,6 +252,7 @@ public class Window {
  		showUE();
 	}
 	
+	// Fonctions classe
 		
 	public void showClasse() {
 		Classe[] tabCl=new Classe[255];
@@ -293,6 +311,8 @@ public class Window {
 		showClasse();
 	}
 	
+	// Fonctions UE
+	
 	public void showUE() {
 		dtm.setRowCount(0);
 		label.setText("UE management");
@@ -333,6 +353,8 @@ public class Window {
 		sessionImplementation.deleteUE(Integer.parseInt(id));
 	}
 	
+	// Fonctions session
+	
 	public void showSession() {
 		dtm.setRowCount(0);
 		label.setText("Session management");
@@ -352,7 +374,6 @@ public class Window {
 		try {
 			sessionImplementation.createSession(Integer.parseInt(num_classe_selected), Integer.parseInt(code_ue_selected), nums_creneaux_selected);
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		code_ue_selected = "-1";
@@ -376,6 +397,8 @@ public class Window {
 		String jour = tokens[2];
 		sessionImplementation.setSession(debut, fin, jour, id_session);
 	}
+	
+	// Fonctions créneau
 	
 	public void showCreneau() {
 		dtm.setRowCount(0);
