@@ -98,6 +98,22 @@ public class SqlUtils {
             System.out.println(e.getMessage());
         }
 	}
+	protected void selectAllCre(){
+        String sql = "SELECT idCreneau, debut, fin , jour FROM Creneau";
+        
+        try (Statement stmt  = conn.createStatement(); ResultSet rs    = stmt.executeQuery(sql))
+        {
+            while (rs.next()) 
+            {
+                System.out.println(rs.getInt("idCreneau") +  "\t" + rs.getString("debut") + "\t" + rs.getString("fin")+ "\t" + rs.getString("jour"));
+            }
+        } 
+        catch (SQLException e) 
+        {
+            System.out.println(e.getMessage());
+        }
+}
+	
 	
 	protected void disconnect() {
 		try {
