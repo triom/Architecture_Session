@@ -39,7 +39,6 @@ public class Window {
 	private String code_ue_selected = "-1";
 	private String num_classe_selected = "-1";
 	private ArrayList<Integer> nums_creneaux_selected;
-	private JTextField idcl,sec,prom;
 	
 	public Window(SessionImplementation si) {
 		this.sessionImplementation = si;
@@ -166,10 +165,6 @@ public class Window {
 	    JPanel panel = new JPanel();
 	    dtm = new DefaultTableModel();
 	    
-	    idcl = new JTextField();
-       	sec = new JTextField();
-        prom = new JTextField();
-	
 	    table = new JTable(dtm);
         table.getTableHeader().setReorderingAllowed(false);
         
@@ -271,10 +266,10 @@ public class Window {
 	    tabCl=sessionImplementation.getAllClasses();
 	    int i=0;
 	    while (tabCl[i]!=null) {
-	    	idcl.setText(Integer.toString(tabCl[i].getClasseid()));
-	   	    sec.setText(tabCl[i].getSection());
-	   	    prom.setText(Integer.toString(tabCl[i].getPromotion()));
-	   	    dtm.addRow(new Object[] { idcl.getText(),sec.getText(),prom.getText() });
+	    	String idcl = Integer.toString(tabCl[i].getClasseid());
+	   	    String sec = tabCl[i].getSection();
+	   	    String prom = Integer.toString(tabCl[i].getPromotion());
+	   	    dtm.addRow(new Object[] { idcl,sec,prom });
 	   	    i++;
 		}
 	    dtm.addRow(new Object[] {"", "", ""});
