@@ -136,5 +136,32 @@ public class SessionImplementation implements SessionInterface {
 		// TODO Auto-generated method stub
 		return this.cl_sql.getById(classeid);
 	}
+		
+	@Override
+	public void createCreneau(int idCreneau,String debut, String fin, String jour) throws SQLException {
+		Creneau creneau= new UE(idCreneau, debut, fin, jour);	
+		this.ue_sql.save(creneau);
+		System.out.println("Creneau created.");
+	}
+
+	@Override
+	public void deleteCreneau(int idCreneau) {
+		Creneau creneau = this.ue_sql.getUEById(idCreneau);
+		this.ue_sql.delete(creneau);
+		System.out.println("Creneau deleted.");
+	}
+	@Override
+	public String getCreneau() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public String listCreneau() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 }
