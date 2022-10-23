@@ -147,7 +147,7 @@ public class SessionImplementation implements SessionInterface {
 
 	@Override
 	public void deleteCreneau(int idCreneau) {
-		Creneau creneau = this.creneau_sql.getUEById(idCreneau);
+		Creneau creneau = this.creneau_sql.getById(idCreneau);
 		this.creneau_sql .delete(creneau);
 		System.out.println("Creneau deleted.");
 	}
