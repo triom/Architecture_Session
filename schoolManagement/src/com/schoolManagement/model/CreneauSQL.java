@@ -19,7 +19,7 @@ public class CreneauSQL extends SqlUtils {
 		this.disconnect();
 	}
 	
-	public Creneau getById(int findId) {
+	public Creneau getCreneauById(int findId) {
 		SqlUtils sql = new SqlUtils();
 		sql.connect();
 		ResultSet set = sql.requestSelect(String.format("SELECT * FROM Creneau WHERE idCreneau='%s'", findId));
