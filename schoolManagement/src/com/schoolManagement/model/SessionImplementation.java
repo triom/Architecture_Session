@@ -87,8 +87,7 @@ public class SessionImplementation implements SessionInterface {
 	public void createSession(int id_classe, int id_ue, ArrayList<Integer> ids_creneaux) throws SQLException {
 		UE ue = this.ue_sql.getUEById(id_ue);
 		System.out.println("no"+ue.getId());
-//		Classe classe = this.cl_sql.getById(id_classe);
-		Classe classe = new Classe(90,"",1);
+		Classe classe = this.cl_sql.getById(id_classe);
 		
 		ArrayList<Creneau> creneaux = new ArrayList<Creneau>();
 //		for (int id : ids_creneaux) {
