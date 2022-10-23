@@ -140,12 +140,11 @@ public class Window {
 	    deleteButton.setBounds(750,150,95,30);
 	    frame.add(deleteButton);
 	    
-	    Object[][] data = {{"", "", ""}};
 	    String header[] = new String[] {"ID","Code","Intitulé"};
 	    
 	    JPanel panel = new JPanel();
-	    dtm = new DefaultTableModel(data, header);
-
+	    dtm = new DefaultTableModel();
+	    dtm.setColumnIdentifiers(header);
 //
 	    idcl = new JTextField();
        	    sec = new JTextField();
@@ -307,11 +306,12 @@ public class Window {
 		
 		String header[] = new String[] {"ID","Code","Intitulé"};
 	    dtm.setColumnIdentifiers(header);
-	    dtm.addRow(new Object[] {"", "", ""});
 	    sessionImplementation.listUEs();
 	    for (UE ue : sessionImplementation.listUEs()) {
 	    	dtm.addRow(new Object[] { ue.getId(),ue.getCode(), ue.getIntitule()});
 	    }
+	    dtm.addRow(new Object[] {"", "", ""});
+	    
 	}
 	
 	public void createUE() {
@@ -396,6 +396,7 @@ public class Window {
 	    	dtm.addRow(new Object[] { creneau.getIdCreneau(),creneau.getDebut(),creneau.getFin(),creneau.getJour()});
 	    }
 	
+	}
 	
 	public void createCreneau() {
 		int row = table.getSelectedRow();
