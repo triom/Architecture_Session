@@ -1,23 +1,23 @@
 package com.schoolManagement.model;
 
 public class Creneau {
-   private  String idCreneau;
+   private  int idCreneau;
    private  String debut;
    private  String fin;
    private  String jour;
 
-    public Creneau(String idCreneau, String debut, String fin, String jour) {
+    public Creneau(int idCreneau, String debut, String fin, String jour) {
         this.idCreneau = idCreneau;
         this.debut = debut;
         this.fin = fin;
         this.jour = jour;
     }
 
-    public String getIdCreneau() {
+    public int getIdCreneau() {
         return idCreneau;
     }
 
-    public void setIdCreneau(String idCreneau) {
+    public void setIdCreneau(int idCreneau) {
         this.idCreneau = idCreneau;
     }
 
