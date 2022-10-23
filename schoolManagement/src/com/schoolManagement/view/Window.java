@@ -79,6 +79,14 @@ public class Window {
 	    bCreneau = new JButton("Créneau");  
 	    bCreneau.setBounds(50,150,95,30); 
 	    frame.add(bCreneau);
+	    bCreneau.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	module = "Creneau";
+		    	showCreneau();
+		    }
+		});
 	    
 	    bClasse = new JButton("Classe");  
 	    bClasse.setBounds(50,200,95,30); 
@@ -408,9 +416,8 @@ public class Window {
 		
 		String header[] = new String[] {"idCreneau","debut","fin","jour"};
 	    dtm.setColumnIdentifiers(header);
-	    dtm.addRow(new Object[] {"", "", "",""});
 	    sessionImplementation.listCreneau();
-	    for (Creneau creneau : sessionImplementation.listCreneau() {
+	    for (Creneau creneau : sessionImplementation.listCreneau()) {
 	    	dtm.addRow(new Object[] { creneau.getIdCreneau(),creneau.getDebut(),creneau.getFin(),creneau.getJour()});
 	    }
 	
