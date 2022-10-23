@@ -136,7 +136,13 @@ public class SessionImplementation implements SessionInterface {
 		// TODO Auto-generated method stub
 		return this.cl_sql.getById(classeid);
 	}
-		
+	@Override
+	public Classe[] getAllClasses(){
+		// TODO Auto-generated method stub
+		return this.cl_sql.getAllClasses();
+		//return this.cl_sql.getById(classeid);
+	}
+	
 	@Override
 	public void createCreneau(int idCreneau,String debut, String fin, String jour) throws SQLException {
 		Creneau creneau= new Creneau(idCreneau, debut, fin, jour);	
