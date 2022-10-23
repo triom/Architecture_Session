@@ -310,4 +310,36 @@ public class Window {
 			e1.printStackTrace();
 		}
 	}
+		
+	public void showCreneau() {
+		dtm.setRowCount(0);
+		label.setText("Creneau management");
+		createButton.setText("Create");
+		
+		String header[] = new String[] {"idCreneau","debut","fin","jour"};
+	    dtm.setColumnIdentifiers(header);
+	    dtm.addRow(new Object[] {"", "", "",""});
+	}
+	
+	public void createCreneau() {
+		int row = table.getSelectedRow();
+		String idCreneau = dtm.getValueAt(row, 0).toString();
+		String debut = dtm.getValueAt(row, 1).toString();	
+		String fin = dtm.getValueAt(row, 2).toString();
+		String jour = dtm.getValueAt(row, 3).toString();
+		try {
+			sessionImplementation.createCreneau(Integer.parseInt(idCreneau), debut,fin, jour);
+			dtm.addRow(new Object[] {"", "", "","" });
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void deleteCreneau() {
+		int row = table.getSelectedRow();
+		String idCreneau = table.getModel().getValueAt(row, 1).toString();
+		sessionImplementation.deleteCreneau(Integer.parseInt(idCreneau));
+	}
+	
 }
