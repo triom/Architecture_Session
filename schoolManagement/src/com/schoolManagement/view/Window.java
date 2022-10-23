@@ -37,7 +37,7 @@ public class Window {
 	private String module;
 	private String code_ue_selected;
 	private String num_classe_selected;
-	private ArrayList<Integer> nums_creneaux_selected;
+	private ArrayList<String> nums_creneaux_selected;
 	
 	public Window(SessionImplementation si) {
 		this.sessionImplementation = si;
@@ -216,7 +216,7 @@ public class Window {
 	 				}
 	 				if (module == "Créneau") {
 	 					if (selection == "true") {
-	 						nums_creneaux_selected.add(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString()));
+	 						nums_creneaux_selected.add(table.getValueAt(table.getSelectedRow(), 1).toString());
 	 						labelSelectedCreneau.setText("Créneau sélectionné");
 	 					}
 				    	else {
@@ -262,6 +262,8 @@ public class Window {
 	}
 	
 	public void showSession() {
+//		table.removeColumn(table.getColumnModel().getColumn(0));
+//		table.getModel().getValueAt(table.getSelectedRow(),0);
 		dtm.setRowCount(0);
 		label.setText("Session management");
 		createButton.setText("Update");
@@ -271,8 +273,7 @@ public class Window {
 	    for (Session session : sessionImplementation.listSession()) {
 	    	System.out.println("session"+":"+session.getUe().getId());
 	    	for (Creneau creneau : session.getCreneaux()) {
-	    		dtm.addRow(new Object[] { false, "test", session.getUe().getId(), "test"});
-//	    		dtm.addRow(new Object[] { false, session.getClasse().getClasseid(), session.getUe().getId(), creneau.getIdCreneau()});
+	    		dtm.addRow(new Object[] { false, session.getClasse().getClasseid(), session.getUe().getId(), creneau.getIdCreneau()});
 	    	}
 	    }
 	}

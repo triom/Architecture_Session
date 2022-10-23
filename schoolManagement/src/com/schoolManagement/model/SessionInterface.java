@@ -17,7 +17,7 @@ public interface SessionInterface {
 	public Classe getClasse(int classeid);
 	
 	// Session
-	void createSession(int id_ue, int id_classe, ArrayList<Integer> ids_creneaux) throws SQLException;
+	void createSession(int id_ue, int id_classe, ArrayList<String> ids_creneaux) throws SQLException;
 	public void deleteSession(int id);
 	public ArrayList<Session> listSession();
 	public void setSession();

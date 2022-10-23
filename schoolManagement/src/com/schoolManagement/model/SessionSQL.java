@@ -50,10 +50,15 @@ public class SessionSQL extends SqlUtils {
 		ResultSet set = this.requestSelect(String.format("SELECT * FROM Session"));
 		try {
 			while (set.next()) {
-				Classe classe = this.cl_sql.getById(set.getInt("ID_classe"));
-				UE ue = this.ue_sql.getUEById(set.getInt("ID_UE"));
-				Creneau creneau = this.creneau_sql.getById(set.getInt("ID_creneau"));
-				System.out.println("okkk="+set.getInt("ID_UE"));
+//				Classe classe = this.cl_sql.getById(set.getInt("ID_classe"));
+//				UE ue = this.ue_sql.getUEById(set.getInt("ID_UE"));
+//				Creneau creneau = this.creneau_sql.getById(set.getString("ID_creneau"));
+				System.out.println("classeid="+set.getInt("ID_classe"));
+				System.out.println("ueid="+set.getInt("ID_UE"));
+				System.out.println("creneauid="+set.getString("ID_creneau"));
+				Classe classe = new Classe(set.getInt("ID_classe"),"",1);
+				UE ue = new UE(set.getInt("ID_UE"),"","");
+				Creneau creneau = new Creneau(set.getString("ID_creneau"), "", "", "");
 				sessions.add(new Session(classe,ue,creneau));
 				
 			}
