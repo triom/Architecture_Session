@@ -101,9 +101,8 @@ public class SessionImplementation implements SessionInterface {
 	}
 
 	@Override
-	public void deleteSession(int id) {
-		Session session = this.session_sql.getSessionById(id);
-		this.session_sql.delete(session);
+	public void deleteSession(int id_session) {
+		this.session_sql.delete(id_session);
 		System.out.println("Session deleted.");
 	}
 

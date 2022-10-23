@@ -28,4 +28,3 @@ public interface SessionInterface {
 	public String getCreneau();
 	public String listCreneau();
 }
-}

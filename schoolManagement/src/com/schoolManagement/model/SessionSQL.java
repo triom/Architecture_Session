@@ -19,9 +19,9 @@ public class SessionSQL extends SqlUtils {
 			this.disconnect();
 	}
 	
-	public void delete(Session session) {
+	public void delete(int id_session) {
 		this.connect();
-		this.requestUpdate(String.format("DELETE FROM Session WHERE ID_session='%s'", session.getId()));
+		this.requestUpdate(String.format("DELETE FROM Session WHERE ID_session='%s'", id_session));
 		this.selectAllSessions();
 		this.disconnect();
 	}
