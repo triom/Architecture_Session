@@ -19,23 +19,22 @@ public class CreneauSQL extends SqlUtils {
 		this.disconnect();
 	}
 	
+	
+
 	public Creneau getById(int findId) {
-//		SqlUtils sql = new SqlUtils();
-//		sql.connect();
-//		ResultSet set = sql.requestSelect(String.format("SELECT * FROM Creneau WHERE idCreneau='%s'", findId));
-//		
-//		try {
-//			Creneau creneau = new Creneau(set.getString("idCreneau"),set.getString("debut"),
-//					set.getString("fin"),set.getString("jour"));
-//			sql.disconnect();
-//			return creneau;
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			sql.disconnect();
-//			return null;
-//		}
-		return null;
+		SqlUtils sql = new SqlUtils();
+		sql.connect();
+		ResultSet set = sql.requestSelect(String.format("SELECT * FROM Creneau WHERE idCreneau='%s'", findId));
+		
+		try {
+		Creneau creneau = new Creneau(set.getInt("idCreneau"),set.getString("debut"),set.getString("fin"),set.getString("jour"));
+			sql.disconnect();
+			return creneau;
+		} catch (SQLException e) {
+		e.printStackTrace();
+			sql.disconnect();
+			return null;
+		}
+		
 		
 	}
-
-}
