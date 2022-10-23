@@ -99,6 +99,23 @@ public class SqlUtils {
         }
 	}
 	
+	protected void selectAllCreneaux(){
+        String sql = "SELECT * FROM Creneau";
+        
+        try (Statement stmt  = conn.createStatement(); ResultSet rs    = stmt.executeQuery(sql))
+        {
+            while (rs.next()) 
+            {
+                System.out.println(rs.getInt("ID_UE") +  "\t" + rs.getString("ID_Classe") + "\t" + rs.getInt("ID_creneau"));
+            }
+        } 
+        catch (SQLException e) 
+        {
+            System.out.println(e.getMessage());
+        }
+	}
+	
+	
 	protected void disconnect() {
 		try {
 			conn.close();

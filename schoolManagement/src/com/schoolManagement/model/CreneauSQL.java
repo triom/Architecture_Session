@@ -8,14 +8,14 @@ public class CreneauSQL extends SqlUtils {
 		this.connect(); 
 		this.requestUpdate(String.format("INSERT INTO Creneau VALUES('%s','%s','%s','%s')", creneau.getIdCreneau(),
 				creneau.getDebut(), creneau.getFin(), creneau.getJour()));
-		this.selectAll();
+		this.selectAllCreneaux();
 		this.disconnect();
 	}
 	
 	public void delete(Creneau creneau) {
 		this.connect();
 		this.requestUpdate(String.format("DELETE FROM Creneau WHERE idCreneau='%s'", creneau.getIdCreneau()));
-		this.selectAll();
+		this.selectAllCreneaux();
 		this.disconnect();
 	}
 	

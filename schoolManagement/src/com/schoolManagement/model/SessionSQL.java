@@ -22,7 +22,7 @@ public class SessionSQL extends SqlUtils {
 	public void delete(Session session) {
 		this.connect();
 		this.requestUpdate(String.format("DELETE FROM Session WHERE id='%s'", session.getId()));
-		this.selectAllSessions;
+		this.selectAllSessions();
 		this.disconnect();
 	}
 	
@@ -58,9 +58,10 @@ public class SessionSQL extends SqlUtils {
 				
 			}
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.selectAllSessions;
+		this.selectAllSessions();
 		this.disconnect();
 		return sessions;
 	}
