@@ -368,11 +368,21 @@ public class Window {
 		dtm.setRowCount(0);
 		label.setText("Creneau management");
 		createButton.setText("Create");
+		if (code_creneau_selected == "-1") {
+			createSession.setVisible(true);
+			createSession.setText("Add Creneau to session");
+		}
+		else
+			createSession.setVisible(false);
 		
 		String header[] = new String[] {"idCreneau","debut","fin","jour"};
 	    dtm.setColumnIdentifiers(header);
 	    dtm.addRow(new Object[] {"", "", "",""});
-	}
+	    sessionImplementation.listCreneau();
+	    for (Creneau creneau : sessionImplementation.listCreneau() {
+	    	dtm.addRow(new Object[] { creneau.getIdCreneau(),creneau.getDebut(),creneau.getFin(),creneau.getJour()});
+	    }
+	
 	
 	public void createCreneau() {
 		int row = table.getSelectedRow();
