@@ -78,9 +78,9 @@ public class SessionImplementation implements SessionInterface {
 	}
 	
 	@Override
-	public String listEU() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<UE> listUEs() {
+		ArrayList<UE> ues = this.ue_sql.getAllUEs();
+		return ues;
 	}
 
 	@Override
