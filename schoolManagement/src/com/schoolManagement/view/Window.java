@@ -311,9 +311,7 @@ public class Window {
 		String header[] = new String[] {"Classe","UE","Créneau"};
 	    dtm.setColumnIdentifiers(header);
 	    for (Session session : sessionImplementation.listSession()) {
-	    	for (Creneau creneau : session.getCreneaux()) {
-	    		dtm.addRow(new Object[] { session.getClasse().getClasseid(), session.getUe().getId(), creneau.getIdCreneau()});
-	    	}
+	    	dtm.addRow(new Object[] { session.getClasse().getClasseid(), session.getUe().getId(), session.getCreneaux().get(0).getIdCreneau()});
 	    }
 	}
 	

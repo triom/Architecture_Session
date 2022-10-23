@@ -32,7 +32,7 @@ public class SessionImplementation implements SessionInterface {
 
 		
 		String sql = "CREATE TABLE IF NOT EXISTS UniteEnseignement(ID INTEGER,code TEXT,intitule TEXT)";
-		String sqlSession = "CREATE TABLE IF NOT EXISTS Session(ID_UE INTEGER,ID_classe INTEGER,ID_creneau INTEGER)";
+		String sqlSession = "CREATE TABLE IF NOT EXISTS Session(ID_classe INTEGER,ID_UE INTEGER,ID_creneau INTEGER)";
 		String sqlClasse = "CREATE TABLE IF NOT EXISTS Classe(ClasseId INTEGER,section TEXT,promotion INTEGER)";
 		String sqlCreneau = "CREATE TABLE IF NOT EXISTS Creneau(idCreneau INTEGER,debut TEXT,fin TEXT,jour TEXT)";
 		
