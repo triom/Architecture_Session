@@ -37,5 +37,36 @@ public class ClasseSQL extends SqlUtils {
 		}
 		
 	}
+	
+		
+	public Classe[] getAllClasses(){
+        SqlUtils sql = new SqlUtils();
+		sql.connect();
+		ResultSet set = sql.requestSelect(String.format("SELECT ClasseId, section, promotion FROM Classe"));
+		Classe[] tabCl=new Classe[255];
+		int i=0;
+		
+        try
+        {
+        	System.out.println("Classe:");
+            while (set.next()) 
+            {
+            	tabCl[i]= new Classe(set.getInt("ClasseId"),set.getString("section"),set.getInt("promotion"));
+            	
+                System.out.println(set.getInt("ClasseId") +  "\t" + set.getString("section") + "\t" + set.getInt("promotion"));
+                
+                i++;
+            }
+            return tabCl;
+
+        } 
+        catch (SQLException e) 
+        {
+            System.out.println(e.getMessage());
+        }
+        return tabCl;
+
+	}
+
 
 }
