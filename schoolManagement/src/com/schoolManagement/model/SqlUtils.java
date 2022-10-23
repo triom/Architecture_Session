@@ -93,7 +93,7 @@ public class SqlUtils {
         	System.out.println("Session:");
             while (rs.next()) 
             {
-                System.out.println(rs.getInt("ID_UE") +  "\t" + rs.getInt("ID_Classe") + "\t" + rs.getInt("ID_creneau"));
+                System.out.println(rs.getInt("ID_Classe") + "\t" + rs.getInt("ID_UE") +  "\t" + rs.getInt("ID_creneau"));
             }
         } 
         catch (SQLException e) 

@@ -86,6 +86,7 @@ public class SessionImplementation implements SessionInterface {
 	@Override
 	public void createSession(int id_classe, int id_ue, ArrayList<Integer> ids_creneaux) throws SQLException {
 		UE ue = this.ue_sql.getUEById(id_ue);
+		System.out.println("verif"+id_classe);
 		Classe classe = this.cl_sql.getById(id_classe);
 		
 		ArrayList<Creneau> creneaux = new ArrayList<Creneau>();

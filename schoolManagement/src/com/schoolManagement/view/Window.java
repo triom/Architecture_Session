@@ -317,7 +317,6 @@ public class Window {
 	
 	public void createSession() {
 		try {
-			num_classe_selected = "0";
 			sessionImplementation.createSession(Integer.parseInt(num_classe_selected), Integer.parseInt(code_ue_selected), nums_creneaux_selected);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
