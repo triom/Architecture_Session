@@ -93,7 +93,7 @@ public class SessionImplementation implements SessionInterface {
 //		for (int id : ids_creneaux) {
 //			creneaux.add(this.creneau_sql.getCreneauById(id));
 //		}
-		creneaux.add(this.creneau_sql.getById(2));
+		creneaux.add(new Creneau("idC", "deb", "fin", "j"));
 			
 		Session session = new Session(classe, ue, creneaux);	
 		this.session_sql.save(session);

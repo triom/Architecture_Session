@@ -57,6 +57,7 @@ public class SqlUtils {
 	        
 	        try (Statement stmt  = conn.createStatement(); ResultSet rs    = stmt.executeQuery(sql))
 	        {
+	        	System.out.println("UE:");
 	            while (rs.next()) 
 	            {
 	                System.out.println(rs.getInt("ID") +  "\t" + rs.getString("code") + "\t" + rs.getString("intitule"));
@@ -72,6 +73,7 @@ public class SqlUtils {
         
         try (Statement stmt  = conn.createStatement(); ResultSet rs    = stmt.executeQuery(sql))
         {
+        	System.out.println("Classe:");
             while (rs.next()) 
             {
                 System.out.println(rs.getInt("ClasseId") +  "\t" + rs.getString("section") + "\t" + rs.getInt("promotion"));
@@ -88,6 +90,7 @@ public class SqlUtils {
         
         try (Statement stmt  = conn.createStatement(); ResultSet rs    = stmt.executeQuery(sql))
         {
+        	System.out.println("Session:");
             while (rs.next()) 
             {
                 System.out.println(rs.getInt("ID_UE") +  "\t" + rs.getString("ID_Classe") + "\t" + rs.getInt("ID_creneau"));
@@ -98,7 +101,7 @@ public class SqlUtils {
             System.out.println(e.getMessage());
         }
 	}
-	protected void selectAllCre(){
+	protected void selectAllCreneaux(){
         String sql = "SELECT idCreneau, debut, fin , jour FROM Creneau";
         
         try (Statement stmt  = conn.createStatement(); ResultSet rs    = stmt.executeQuery(sql))
@@ -112,25 +115,7 @@ public class SqlUtils {
         {
             System.out.println(e.getMessage());
         }
-}
-	
-	
-	protected void selectAllCreneaux(){
-        String sql = "SELECT * FROM Creneau";
-        
-        try (Statement stmt  = conn.createStatement(); ResultSet rs    = stmt.executeQuery(sql))
-        {
-            while (rs.next()) 
-            {
-                System.out.println(rs.getInt("ID_UE") +  "\t" + rs.getString("ID_Classe") + "\t" + rs.getInt("ID_creneau"));
-            }
-        } 
-        catch (SQLException e) 
-        {
-            System.out.println(e.getMessage());
-        }
 	}
-	
 	
 	protected void disconnect() {
 		try {

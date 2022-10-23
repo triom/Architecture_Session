@@ -278,6 +278,7 @@ public class Window {
 	}
 	
 	public void createSession() {
+		System.out.println("create session");
 		try {
 			num_classe_selected = "0";
 			sessionImplementation.createSession(Integer.parseInt(num_classe_selected), Integer.parseInt(code_ue_selected), nums_creneaux_selected);
