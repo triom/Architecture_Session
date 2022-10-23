@@ -75,6 +75,14 @@ public class Window {
 	    bClasse = new JButton("Classe");  
 	    bClasse.setBounds(50,200,95,30); 
 	    frame.add(bClasse);
+	    bClasse.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	module = "Classe";
+		    	showClasse();
+		    }
+		});
 	    
 	    bSession = new JButton("Session");  
 	    bSession.setBounds(50,250,95,30); 
@@ -208,6 +216,40 @@ public class Window {
  		showUE();
 	}
 	
+	public void showClasse() {
+		label.setText("Classe management");
+		
+		String header[] = new String[] {"Id classe","Section","Promotion"};
+	    dtm.setColumnIdentifiers(header);
+	}
+	
+	public void createClasse() {
+		int row = table.getSelectedRow();
+	    String id_classe = dtm.getValueAt(row, 0).toString();
+		String section = dtm.getValueAt(row, 1).toString();	
+		//String promotion = tableUE.getModel().getValueAt(row, 2).toString();
+		// tableUE.getModel().getValueAt(row, 2).toString() return null, je sais pas ou est exactement le probleme, 
+		String promotion = "2022";
+		try {
+			System.out.println(Integer.parseInt(id_classe));
+			System.out.println(section);
+			System.out.println(promotion);
+
+			sessionImplementation.createClasse(Integer.parseInt(id_classe), section, Integer.parseInt(promotion));
+
+			dtm.addRow(new Object[] { "", "", "" });
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void deleteClasse() {
+		int row = table.getSelectedRow();
+		String classe_id = table.getModel().getValueAt(row, 0).toString();
+		sessionImplementation.deleteClasse(Integer.parseInt(classe_id));
+	}
+	
 	public void showUE() {
 		dtm.setRowCount(0);
 		label.setText("UE management");
@@ -234,7 +276,7 @@ public class Window {
 	
 	public void deleteUE() {
 		int row = table.getSelectedRow();
-		String id = table.getModel().getValueAt(row, 1).toString();
+		String id = table.getModel().getValueAt(row, 0).toString();
 		sessionImplementation.deleteUE(Integer.parseInt(id));
 	}
 	
@@ -242,6 +284,7 @@ public class Window {
 		dtm.setRowCount(0);
 		label.setText("Session management");
 		createButton.setText("Update");
+		createSession.setVisible(false);
 		
 		String header[] = new String[] {"Classe","UE","Créneau"};
 	    dtm.setColumnIdentifiers(header);
