@@ -113,8 +113,9 @@ public class SessionImplementation implements SessionInterface {
 	}
 
 	@Override
-	public void setSession(int id_session, int id_creneau) {
-		this.session_sql.update(id_session, id_creneau);
+	public void setSession(String debut, String fin, String jour, int id_session) {
+		Creneau creneau = this.creneau_sql.getCreneau(debut, fin, jour);
+		this.session_sql.update(id_session, creneau.getIdCreneau());
 		System.out.println("Session updated.");
 	}
 	

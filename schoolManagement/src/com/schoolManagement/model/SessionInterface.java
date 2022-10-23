@@ -20,7 +20,7 @@ public interface SessionInterface {
 	void createSession(int id_ue, int id_classe, ArrayList<Integer> ids_creneaux) throws SQLException;
 	public void deleteSession(int id);
 	public ArrayList<Session> listSession();
-	public void setSession(int id_session, int id_creneau);
+	public void setSession(String debut, String fin, String jour, int id_session);
 	
 	//creneau
 	public void createCreneau(int idCreneau, String debut, String fin, String jour) throws SQLException;

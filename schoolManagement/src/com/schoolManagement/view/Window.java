@@ -160,6 +160,8 @@ public class Window {
  					createUE();
  				if (module == "Classe")
  					createClasse();
+ 				if (module == "Session")
+ 					updateSession();
  			}
  		});
  		deleteButton.addActionListener(new ActionListener() {
@@ -338,6 +340,17 @@ public class Window {
 		sessionImplementation.deleteSession(Integer.parseInt(id));
 	}
 		
+	public void updateSession() {
+		int row = table.getSelectedRow();
+		int id_session = Integer.parseInt(dtm.getValueAt(row, 0).toString());
+		String creneau = dtm.getValueAt(row, 3).toString();
+		String[] tokens = creneau.split(" ");
+		String debut = tokens[0];
+		String fin = tokens[1];
+		String jour = tokens[2];
+		sessionImplementation.setSession(debut, fin, jour, id_session);
+	}
+	
 	public void showCreneau() {
 		dtm.setRowCount(0);
 		label.setText("Creneau management");
