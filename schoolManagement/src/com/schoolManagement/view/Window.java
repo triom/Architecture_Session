@@ -158,12 +158,16 @@ public class Window {
  			public void actionPerformed(ActionEvent e) {
  				if (module == "UE")
  					createUE();
+ 				if (module == "Classe")
+ 					createClasse();
  			}
  		});
  		deleteButton.addActionListener(new ActionListener() {
  			public void actionPerformed(ActionEvent e) {
  				if (module == "UE")
  					deleteUE();
+ 				if (module == "Classe")
+ 					deleteClasse();
 // 				if (module == "Session")
 // 					deleteSession();
  			}

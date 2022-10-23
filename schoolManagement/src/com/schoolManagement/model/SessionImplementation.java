@@ -16,6 +16,7 @@ public class SessionImplementation implements SessionInterface {
 		this.ue_sql = new UESQL();
 		this.session_sql = new SessionSQL();
 		this.creneau_sql = new CreneauSQL();
+		this.cl_sql = new ClasseSQL();
 		
 		Connection conn=null;
 		String url = "jdbc:sqlite:data.db";
