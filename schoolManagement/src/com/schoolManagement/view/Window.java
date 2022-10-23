@@ -1,5 +1,6 @@
 package com.schoolManagement.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -35,12 +36,13 @@ public class Window {
 	private JButton createButton;
 	private JButton deleteButton;
 	private String module;
-	private String code_ue_selected;
-	private String num_classe_selected;
-	private ArrayList<String> nums_creneaux_selected;
+	private String code_ue_selected = "-1";
+	private String num_classe_selected = "-1";
+	private ArrayList<Integer> nums_creneaux_selected;
 	
 	public Window(SessionImplementation si) {
 		this.sessionImplementation = si;
+		this.nums_creneaux_selected = new ArrayList<Integer>();
 		initialize();
 	}
 	
@@ -115,8 +117,8 @@ public class Window {
 	    explanation2.setFont(new Font("Verdana", Font.BOLD, 12));
 	    frame.add(explanation2);
 	    
-	    createSession = new JButton("Create Session");  
-	    createSession.setBounds(750,310,125,30);
+	    createSession = new JButton("Add UE to Session");  
+	    createSession.setBounds(750,310,155,30);
 	    frame.add(createSession);
 	    
 	    createButton = new JButton("Create");  
@@ -127,35 +129,13 @@ public class Window {
 	    deleteButton.setBounds(750,150,95,30);
 	    frame.add(deleteButton);
 	    
-	    Object[][] data = {
-            {false, "2", "2", "KL"},
-        };
-	    String header[] = new String[] {"Select", "ID","Code","Intitulé"};
+	    Object[][] data = {{"", "", ""}};
+	    String header[] = new String[] {"ID","Code","Intitulé"};
 	    
 	    JPanel panel = new JPanel();
 	    dtm = new DefaultTableModel(data, header);
-	    dtm.addRow(new Object[] {false, "", "", ""});
-	    
-	    table = new JTable(dtm) {
 
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public Class getColumnClass(int column) {
-                switch (column) {
-                    case 0:
-                    	return Boolean.class;
-                    case 1:
-                        return String.class;
-                    case 2:
-                        return String.class;
-                    case 3:
-                    	return String.class;
-                    default:
-                        return String.class;
-                }
-            }
-        };
+	    table = new JTable(dtm);
         table.getTableHeader().setReorderingAllowed(false);
         
         JScrollPane paneUE = new JScrollPane(table);
@@ -183,48 +163,38 @@ public class Window {
  		
  		createSession.addActionListener(new ActionListener() {
  			public void actionPerformed(ActionEvent e) {
- 				createSession();
+ 				if (createSession.getText().contains("Create"))
+ 					createSession();
+ 				
+ 				else if (table.getSelectedRow() != -1 && table.getRowCount() > 0) {
+	 	        	if (module == "UE") {
+				    	code_ue_selected = table.getValueAt(table.getSelectedRow(), 1).toString();
+				    	labelSelectedUE.setText("UE sélectionné");
+				    	labelSelectedUE.setForeground(Color.GREEN);
+				    }
+	 				if (module == "Classe") {
+	 					num_classe_selected = table.getValueAt(table.getSelectedRow(), 1).toString();
+	 					labelSelectedClasse.setText("Classe sélectionnée");
+	 					labelSelectedClasse.setForeground(Color.GREEN);
+	 				}
+	 				if (module == "Créneau") {
+	 					nums_creneaux_selected.add(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString()));
+	 					labelSelectedCreneau.setText("Créneau sélectionné");
+	 					labelSelectedCreneau.setForeground(Color.GREEN);
+	 				}
+	 				
+	 				if (!nums_creneaux_selected.isEmpty() && num_classe_selected != "-1" && code_ue_selected != "-1") {
+	 					createSession.setText("Create session");
+	 				}
+	 				
+	 	        }	
  			}
  		});
 	 	
  		dtm.addTableModelListener(new TableModelListener(){
  		    @Override
  		    public void tableChanged(TableModelEvent tableModelEvent) {
- 		    	if (table.getSelectedRow() != -1 && table.getRowCount() > 0) {
-	 	        	
-	 	            String selection = table.getValueAt(table.getSelectedRow(), 0).toString();
-				    
-				    if (module == "UE") {
-				    	if (selection == "true") {
-				    		code_ue_selected = table.getValueAt(table.getSelectedRow(), 1).toString();
-				    		labelSelectedUE.setText("UE sélectionné");
-				    	}
-				    	else {
-				    		code_ue_selected = "";
-				    		labelSelectedUE.setText("Aucun UE sélectionné");
-				    	}
-				    }
-	 				if (module == "Classe") {
-	 					if (selection == "true") {
-	 						num_classe_selected = table.getValueAt(table.getSelectedRow(), 1).toString();
-	 						labelSelectedClasse.setText("Classe sélectionnée");
-	 					}
-				    	else {
-				    		num_classe_selected = "";
-				    		labelSelectedClasse.setText("Aucune classe sélectionnée");
-				    	}
-	 				}
-	 				if (module == "Créneau") {
-	 					if (selection == "true") {
-	 						nums_creneaux_selected.add(table.getValueAt(table.getSelectedRow(), 1).toString());
-	 						labelSelectedCreneau.setText("Créneau sélectionné");
-	 					}
-				    	else {
-				    		nums_creneaux_selected.clear();
-				    		labelSelectedCreneau.setText("0 Créneau sélectionné");
-				    	}
-	 				}
-	 	        }
+ 		    	
  	        }      
  		});
  		
@@ -236,19 +206,19 @@ public class Window {
 		label.setText("UE management");
 		createButton.setText("Create");
 		
-		String header[] = new String[] {"Select", "ID","Code","Intitulé"};
+		String header[] = new String[] {"ID","Code","Intitulé"};
 	    dtm.setColumnIdentifiers(header);
-	    dtm.addRow(new Object[] {false, "", "", ""});
+	    dtm.addRow(new Object[] {"", "", ""});
 	}
 	
 	public void createUE() {
 		int row = table.getSelectedRow();
-		String id = dtm.getValueAt(row, 1).toString();
-		String codeUE = dtm.getValueAt(row, 2).toString();	
-		String intituleUE = dtm.getValueAt(row, 3).toString();
+		String id = dtm.getValueAt(row, 0).toString();
+		String codeUE = dtm.getValueAt(row, 1).toString();	
+		String intituleUE = dtm.getValueAt(row, 2).toString();
 		try {
 			sessionImplementation.createUE(Integer.parseInt(id), codeUE, intituleUE);
-			dtm.addRow(new Object[] { false, "", "", "" });
+			dtm.addRow(new Object[] {"", "", "" });
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -262,13 +232,11 @@ public class Window {
 	}
 	
 	public void showSession() {
-//		table.removeColumn(table.getColumnModel().getColumn(0));
-//		table.getModel().getValueAt(table.getSelectedRow(),0);
 		dtm.setRowCount(0);
 		label.setText("Session management");
 		createButton.setText("Update");
 		
-		String header[] = new String[] {"Select","Classe","UE","Créneau"};
+		String header[] = new String[] {"Classe","UE","Créneau"};
 	    dtm.setColumnIdentifiers(header);
 	    for (Session session : sessionImplementation.listSession()) {
 	    	System.out.println("session"+":"+session.getUe().getId());
