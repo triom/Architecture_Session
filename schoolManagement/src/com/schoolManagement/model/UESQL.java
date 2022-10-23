@@ -2,6 +2,8 @@ package com.schoolManagement.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 
 public class UESQL extends SqlUtils {
 	public void save(UE ue) throws SQLException {

@@ -280,6 +280,10 @@ public class Window {
 		String header[] = new String[] {"ID","Code","Intitulé"};
 	    dtm.setColumnIdentifiers(header);
 	    dtm.addRow(new Object[] {"", "", ""});
+	    sessionImplementation.listUEs();
+	    for (UE ue : sessionImplementation.listUEs()) {
+	    	dtm.addRow(new Object[] { ue.getId(),ue.getCode(), ue.getIntitule()});
+	    }
 	}
 	
 	public void createUE() {

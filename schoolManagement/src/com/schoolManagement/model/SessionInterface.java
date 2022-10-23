@@ -9,7 +9,7 @@ public interface SessionInterface {
 	public void createUE(int id, String code, String intitule) throws SQLException;
 	public void deleteUE(int id);
 	public String getUE();
-	public String listEU();
+	public ArrayList<UE> listUEs();
 	
 	// Classe
 	public void createClasse(int classeid, String section, int promotion) throws SQLException;
