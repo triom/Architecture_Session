@@ -406,6 +406,7 @@ public class Window {
 		code_ue_selected = "-1";
 		num_classe_selected = "-1";
 		nums_creneaux_selected.clear();
+		showSession();
 	}
 	
 	public void deleteSession() {
