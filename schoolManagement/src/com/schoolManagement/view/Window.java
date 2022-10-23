@@ -255,6 +255,7 @@ public class Window {
 				labelSelectedClasse.setForeground(Color.BLACK);
 				labelSelectedCreneau.setText("Aucun créneau sélectionné");
 				labelSelectedCreneau.setForeground(Color.BLACK);
+				createSession.setVisible(false);
 				createSession();
 	 		}
 		});
@@ -382,7 +383,6 @@ public class Window {
 		dtm.setRowCount(0);
 		label.setText("Session management");
 		createButton.setText("Update");
-		createSession.setVisible(false);
 		
 		String header[] = new String[] {"ID_Section", "Classe","UE","Créneau"};
 	    dtm.setColumnIdentifiers(header);
