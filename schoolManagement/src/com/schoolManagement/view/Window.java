@@ -420,7 +420,7 @@ public class Window {
 	    for (Creneau creneau : sessionImplementation.listCreneau()) {
 	    	dtm.addRow(new Object[] { creneau.getIdCreneau(),creneau.getDebut(),creneau.getFin(),creneau.getJour()});
 	    }
-	
+	    dtm.addRow(new Object[] {"", "", ""});
 	}
 	
 	public void createCreneau() {
