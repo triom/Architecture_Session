@@ -28,3 +28,4 @@ public interface SessionInterface {
 	public void deleteCreneau(int idCreneau);
 	public String getCreneau();
 	public ArrayList<Creneau>  listCreneau();
+}

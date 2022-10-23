@@ -1,16 +1,17 @@
 package com.schoolManagement.view;
 
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -28,7 +29,7 @@ public class Window {
 	private JButton bCreneau;
 	private JButton bClasse;
 	private JButton bSession;
-	private JButton createSession;
+	private JButton addSession, createSession;
 	private JLabel label, labelSelectedUE, labelSelectedClasse, labelSelectedCreneau;
 	private SessionImplementation sessionImplementation;
 	private DefaultTableModel dtm;
@@ -152,9 +153,14 @@ public class Window {
 	    // Bouton permettant d'ajouter chaque élement permettant 
 	    // de créer une session 
 	    
-	    createSession = new JButton("Add UE to Session");  
-	    createSession.setBounds(750,310,180,30);
+	    addSession = new JButton("Add UE to Session");  
+	    addSession.setBounds(750,310,180,30);
+	    frame.add(addSession);
+	    
+	    createSession = new JButton("Create Session");  
+	    createSession.setBounds(750,330,180,30);
 	    frame.add(createSession);
+	    createSession.setVisible(false);
 	    
 	    // Bouton de création de module
 	    
@@ -175,6 +181,8 @@ public class Window {
 	    
 	    table = new JTable(dtm);
         table.getTableHeader().setReorderingAllowed(false);
+        
+        table.setAutoResizeMode( JTable.AUTO_RESIZE_ALL_COLUMNS );
         
         JScrollPane paneUE = new JScrollPane(table);
 	    paneUE.setPreferredSize(new Dimension(300,500));
@@ -209,45 +217,48 @@ public class Window {
  			}
  		});
  		
- 		createSession.addActionListener(new ActionListener() {
+ 		addSession.addActionListener(new ActionListener() {
  			public void actionPerformed(ActionEvent e) {
- 				if (createSession.getText().contains("Create")) {
- 					labelSelectedUE.setText("Aucun UE sélectionné");
-			    	labelSelectedUE.setForeground(Color.BLACK);
-			    	labelSelectedClasse.setText("Aucune classe sélectionnée");
- 					labelSelectedClasse.setForeground(Color.BLACK);
- 					labelSelectedCreneau.setText("Aucun créneau sélectionné");
- 					labelSelectedCreneau.setForeground(Color.BLACK);
- 					createSession();
- 				}
  				
- 				else if (table.getSelectedRow() != -1 && table.getRowCount() > 0) {
+ 				if (table.getSelectedRow() != -1 && table.getRowCount() > 0) {
 	 	        	if (module == "UE") {
 				    	code_ue_selected = table.getValueAt(table.getSelectedRow(), 0).toString();
 				    	labelSelectedUE.setText("UE sélectionné");
 				    	labelSelectedUE.setForeground(Color.GREEN);
-				    	createSession.setVisible(false);
+				    	addSession.setVisible(false);
 				    }
 	 				if (module == "Classe") {
 	 					num_classe_selected = table.getValueAt(table.getSelectedRow(), 0).toString();
 	 					labelSelectedClasse.setText("Classe sélectionnée");
 	 					labelSelectedClasse.setForeground(Color.GREEN);
-	 					createSession.setVisible(false);
+	 					addSession.setVisible(false);
 	 				}
-	 				if (module == "Créneau") {
+	 				if (module == "Creneau") {
 	 					nums_creneaux_selected.add(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString()));
-	 					labelSelectedCreneau.setText("Créneau sélectionné");
-	 					labelSelectedCreneau.setForeground(Color.GREEN);
-	 					createSession.setVisible(false);
+	 					labelSelectedCreneau.setText(nums_creneaux_selected.size()+" créneau(x) sélectionné(s)");
+	 					labelSelectedCreneau.setForeground(Color.ORANGE);
 	 				}
 	 				
 	 				if (!nums_creneaux_selected.isEmpty() && num_classe_selected != "-1" && code_ue_selected != "-1") {
-	 					createSession.setText("Create session");
+	 					createSession.setVisible(true);
 	 				}
 	 				
 	 	        }	
  			}
  		});
+ 		
+ 		createSession.addActionListener(new ActionListener() {
+	 		public void actionPerformed(ActionEvent e) {
+	 			labelSelectedUE.setText("Aucun UE sélectionné");
+		    	labelSelectedUE.setForeground(Color.BLACK);
+		    	labelSelectedClasse.setText("Aucune classe sélectionnée");
+				labelSelectedClasse.setForeground(Color.BLACK);
+				labelSelectedCreneau.setText("Aucun créneau sélectionné");
+				labelSelectedCreneau.setForeground(Color.BLACK);
+				createSession();
+	 		}
+		});
+		
 	 	
  		dtm.addTableModelListener(new TableModelListener(){
  		    @Override
@@ -264,7 +275,9 @@ public class Window {
 	public void showClasse() {
 		Classe[] tabCl=new Classe[255];
 		label.setText("Classe management");
+		addSession.setText("Add Classe to Section");
 		
+		createButton.setText("Create");
 		String header[] = new String[] {"Id classe","Section","Promotion"};
 	    dtm.setColumnIdentifiers(header);
 	    //idcl,sec,prom;
@@ -305,7 +318,6 @@ public class Window {
 
 			dtm.addRow(new Object[] { "", "", "" });
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		showClasse();
@@ -316,6 +328,7 @@ public class Window {
 		String classe_id = table.getModel().getValueAt(row, 0).toString();
 		sessionImplementation.deleteClasse(Integer.parseInt(classe_id));
 		showClasse();
+		dtm.removeRow(row);
 	}
 	
 	// Fonctions UE
@@ -323,13 +336,14 @@ public class Window {
 	public void showUE() {
 		dtm.setRowCount(0);
 		label.setText("UE management");
+		addSession.setText("Add UE to Section");
+		
 		createButton.setText("Create");
 		if (code_ue_selected == "-1") {
-			createSession.setVisible(true);
-			createSession.setText("Add UE to session");
+			addSession.setVisible(true);
 		}
 		else
-			createSession.setVisible(false);
+			addSession.setVisible(false);
 		
 		String header[] = new String[] {"ID","Code","Intitulé"};
 	    dtm.setColumnIdentifiers(header);
@@ -358,11 +372,13 @@ public class Window {
 		int row = table.getSelectedRow();
 		String id = table.getModel().getValueAt(row, 0).toString();
 		sessionImplementation.deleteUE(Integer.parseInt(id));
+		dtm.removeRow(row);
 	}
 	
 	// Fonctions session
 	
 	public void showSession() {
+		addSession.setVisible(false);
 		dtm.setRowCount(0);
 		label.setText("Session management");
 		createButton.setText("Update");
@@ -372,7 +388,7 @@ public class Window {
 	    dtm.setColumnIdentifiers(header);
 	    for (Session session : sessionImplementation.listSession()) {
 	    	String classe = session.getClasse().getSection()+" "+session.getClasse().getPromotion();
-	    	String creneau = session.getCreneaux().get(0).getJour()+" "+session.getCreneaux().get(0).getDebut()+" "+session.getCreneaux().get(0).getFin();
+	    	String creneau = session.getCreneaux().get(0).getDebut()+" - "+session.getCreneaux().get(0).getFin()+" le "+session.getCreneaux().get(0).getJour();
 	    	dtm.addRow(new Object[] { session.getId(), classe, session.getUe().getCode(), creneau});
 	    }
 	}
@@ -392,6 +408,7 @@ public class Window {
 		int row = table.getSelectedRow();
 		String id = table.getModel().getValueAt(row, 0).toString();
 		sessionImplementation.deleteSession(Integer.parseInt(id));
+		dtm.removeRow(row);
 	}
 		
 	public void updateSession() {
@@ -403,6 +420,7 @@ public class Window {
 		String fin = tokens[1];
 		String jour = tokens[2];
 		sessionImplementation.setSession(debut, fin, jour, id_session);
+		showSession();
 	}
 	
 	// Fonctions créneau
@@ -410,13 +428,12 @@ public class Window {
 	public void showCreneau() {
 		dtm.setRowCount(0);
 		label.setText("Creneau management");
+		addSession.setText("Add Creneau to Section");
+		
 		createButton.setText("Create");
 		if (nums_creneaux_selected.isEmpty()) {
-			createSession.setVisible(true);
-			createSession.setText("Add Creneau to session");
+			addSession.setVisible(true);
 		}
-		else
-			createSession.setVisible(false);
 		
 		String header[] = new String[] {"idCreneau","debut","fin","jour"};
 	    dtm.setColumnIdentifiers(header);
@@ -437,7 +454,6 @@ public class Window {
 			sessionImplementation.createCreneau(Integer.parseInt(idCreneau), debut,fin, jour);
 			dtm.addRow(new Object[] {"", "", "","" });
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -446,6 +462,7 @@ public class Window {
 		int row = table.getSelectedRow();
 		String idCreneau = table.getModel().getValueAt(row, 0).toString();
 		sessionImplementation.deleteCreneau(Integer.parseInt(idCreneau));
+		dtm.removeRow(row);
 	}
 	
 }

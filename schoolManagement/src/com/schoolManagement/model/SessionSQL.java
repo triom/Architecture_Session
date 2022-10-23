@@ -59,8 +59,7 @@ public class SessionSQL extends SqlUtils {
 			while (set.next()) {
 				Classe classe = this.cl_sql.getById(set.getInt("ID_classe"));
 				UE ue = this.ue_sql.getUEById(set.getInt("ID_UE"));
-//				Creneau creneau = this.creneau_sql.getById(set.getString("ID_creneau"));
-				Creneau creneau = new Creneau(set.getInt("ID_creneau"), "deb", "fin", "j");
+				Creneau creneau = this.creneau_sql.getCreneauById(set.getInt("ID_creneau"));
 				sessions.add(new Session(set.getInt("ID_session"), classe,ue,creneau));	
 			}
 		} catch (SQLException e) {
