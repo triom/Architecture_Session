@@ -192,6 +192,8 @@ public class Window {
  					createClasse();
  				if (module == "Session")
  					updateSession();
+ 				if (module == "Creneau")
+ 					createCreneau();
  			}
  		});
  		deleteButton.addActionListener(new ActionListener() {
@@ -202,6 +204,8 @@ public class Window {
  					deleteClasse();
  				if (module == "Session")
  					deleteSession();
+ 				if (module == "Creneau")
+ 					deleteCreneau();
  			}
  		});
  		
@@ -440,7 +444,7 @@ public class Window {
 	
 	public void deleteCreneau() {
 		int row = table.getSelectedRow();
-		String idCreneau = table.getModel().getValueAt(row, 1).toString();
+		String idCreneau = table.getModel().getValueAt(row, 0).toString();
 		sessionImplementation.deleteCreneau(Integer.parseInt(idCreneau));
 	}
 	
