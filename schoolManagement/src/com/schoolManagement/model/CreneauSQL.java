@@ -35,6 +35,5 @@ public class CreneauSQL extends SqlUtils {
 			sql.disconnect();
 			return null;
 		}
-		
-		
 	}
+}
