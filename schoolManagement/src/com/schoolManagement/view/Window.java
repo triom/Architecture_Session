@@ -126,7 +126,7 @@ public class Window {
 	    frame.add(explanation2);
 	    
 	    createSession = new JButton("Add UE to Session");  
-	    createSession.setBounds(750,310,155,30);
+	    createSession.setBounds(750,310,180,30);
 	    frame.add(createSession);
 	    
 	    createButton = new JButton("Create");  
@@ -187,19 +187,23 @@ public class Window {
  				
  				else if (table.getSelectedRow() != -1 && table.getRowCount() > 0) {
 	 	        	if (module == "UE") {
-				    	code_ue_selected = table.getValueAt(table.getSelectedRow(), 1).toString();
+				    	code_ue_selected = table.getValueAt(table.getSelectedRow(), 0).toString();
 				    	labelSelectedUE.setText("UE sélectionné");
 				    	labelSelectedUE.setForeground(Color.GREEN);
+				    	createSession.setVisible(false);
 				    }
 	 				if (module == "Classe") {
-	 					num_classe_selected = table.getValueAt(table.getSelectedRow(), 1).toString();
+	 					num_classe_selected = table.getValueAt(table.getSelectedRow(), 0).toString();
 	 					labelSelectedClasse.setText("Classe sélectionnée");
 	 					labelSelectedClasse.setForeground(Color.GREEN);
+	 					nums_creneaux_selected.add(34);
+	 					//createSession.setVisible(false);
 	 				}
 	 				if (module == "Créneau") {
-	 					nums_creneaux_selected.add(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 1).toString()));
+	 					nums_creneaux_selected.add(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString()));
 	 					labelSelectedCreneau.setText("Créneau sélectionné");
 	 					labelSelectedCreneau.setForeground(Color.GREEN);
+	 					createSession.setVisible(false);
 	 				}
 	 				
 	 				if (!nums_creneaux_selected.isEmpty() && num_classe_selected != "-1" && code_ue_selected != "-1") {
@@ -221,10 +225,18 @@ public class Window {
 	}
 	
 	public void showClasse() {
+		dtm.setRowCount(0);
 		label.setText("Classe management");
+		if (num_classe_selected == "-1") {
+			createSession.setVisible(true);
+			createSession.setText("Add classe to session");
+		}
+		else
+			createSession.setVisible(false);
 		
 		String header[] = new String[] {"Id classe","Section","Promotion"};
 	    dtm.setColumnIdentifiers(header);
+	    dtm.addRow(new Object[] {"", "", ""});
 	}
 	
 	public void createClasse() {
@@ -258,6 +270,12 @@ public class Window {
 		dtm.setRowCount(0);
 		label.setText("UE management");
 		createButton.setText("Create");
+		if (code_ue_selected == "-1") {
+			createSession.setVisible(true);
+			createSession.setText("Add UE to session");
+		}
+		else
+			createSession.setVisible(false);
 		
 		String header[] = new String[] {"ID","Code","Intitulé"};
 	    dtm.setColumnIdentifiers(header);
@@ -293,15 +311,13 @@ public class Window {
 		String header[] = new String[] {"Classe","UE","Créneau"};
 	    dtm.setColumnIdentifiers(header);
 	    for (Session session : sessionImplementation.listSession()) {
-	    	System.out.println("session"+":"+session.getUe().getId());
 	    	for (Creneau creneau : session.getCreneaux()) {
-	    		dtm.addRow(new Object[] { false, session.getClasse().getClasseid(), session.getUe().getId(), creneau.getIdCreneau()});
+	    		dtm.addRow(new Object[] { session.getClasse().getClasseid(), session.getUe().getId(), creneau.getIdCreneau()});
 	    	}
 	    }
 	}
 	
 	public void createSession() {
-		System.out.println("create session");
 		try {
 			num_classe_selected = "0";
 			sessionImplementation.createSession(Integer.parseInt(num_classe_selected), Integer.parseInt(code_ue_selected), nums_creneaux_selected);
@@ -309,5 +325,8 @@ public class Window {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		code_ue_selected = "-1";
+		num_classe_selected = "-1";
+		nums_creneaux_selected.clear();
 	}
 }
