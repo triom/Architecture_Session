@@ -166,8 +166,8 @@ public class SessionImplementation implements SessionInterface {
 		
 	@Override
 	public ArrayList<Creneau>  listCreneau() {
-		ArrayList<Creneau> cerneaux = this.creneau_sql.selectAllCreneaux();
-		return cerneaux;
+		ArrayList<Creneau> creneaux = this.creneau_sql.getAllCreneaux();
+		return creneaux;
 	}
 	
 

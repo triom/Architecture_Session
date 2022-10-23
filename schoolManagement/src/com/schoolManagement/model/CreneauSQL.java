@@ -49,7 +49,7 @@ public class CreneauSQL extends SqlUtils {
 		}
 	}
 	
-	public ArrayList<Creneau> getAllcreneaux() {
+	public ArrayList<Creneau> getAllCreneaux() {
         ArrayList<Creneau> creneau = new ArrayList<Creneau>();
         this.connect();
         ResultSet set = this.requestSelect(String.format("SELECT * FROM Creneau"));

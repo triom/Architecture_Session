@@ -27,5 +27,4 @@ public interface SessionInterface {
 	public void createCreneau(int idCreneau, String debut, String fin, String jour) throws SQLException;
 	public void deleteCreneau(int idCreneau);
 	public String getCreneau();
-	public String listCreneau();
-}
+	public ArrayList<Creneau>  listCreneau();
